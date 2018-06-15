@@ -3,7 +3,7 @@ pathConnectors="connectors"
 
 #	Connector: Sales Cloud:
 
-cp ${pathConnectors}/${ICS_CONNECTOR_SC_CONFIG_NAME} ${pathConnectors}/${pathConnectors}/temp_${ICS_CONNECTOR_SC_CONFIG_NAME}
+cp ${pathConnectors}/${ICS_CONNECTOR_SC_CONFIG_NAME} ${pathConnectors}/temp_${ICS_CONNECTOR_SC_CONFIG_NAME}
 sed -i "s/@ICS_SC_CONNECTOR_NAME@/${ICS_SC_CONNECTOR_NAME}/g" ${pathConnectors}/temp_${ICS_CONNECTOR_SC_CONFIG_NAME}
 sed -i "s/@ICS_CONNECTOR_SC_URI@/${ICS_CONNECTOR_SC_URI}/g" ${pathConnectors}/temp_${ICS_CONNECTOR_SC_CONFIG_NAME}
 sed -i "s/@ICS_CONNECTOR_SC_OSC_SERVICE_CATALOG_WSDL_URL@/${ICS_CONNECTOR_SC_OSC_SERVICE_CATALOG_WSDL_URL}/g" ${pathConnectors}/temp_${ICS_CONNECTOR_SC_CONFIG_NAME}
