@@ -32,6 +32,7 @@ pathIntegration="integration"
 ###########################
 # If upserting, we need to delete the integration and connectors first, but it is dangerous, do it only if you know what you're doing:
 
+# Deleting integration:
 #curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X DELETE ${ICS_INTEGRATION_DELETE_IMPORT_URI} -v
 
 # Deleting each of the associated connectors:
