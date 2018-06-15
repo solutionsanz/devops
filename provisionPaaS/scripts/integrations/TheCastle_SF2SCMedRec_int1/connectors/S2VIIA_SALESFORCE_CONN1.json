@@ -1,11 +1,4 @@
 {
-  "adapterType": {
-    "displayName": "Salesforce",
-    "name": "salesforce",
-    "type": "PREINSTALLED"
-  },
-  "agentRequired": false,
-  "agentSupported": false,
   "connectionProperties": [
     {
       "attachment": {
@@ -23,54 +16,7 @@
       "requiredFlag": true
     }
   ],
-  "created": "2018-05-06T09:41:09.431+0000",
-  "createdBy": "cloud.admin",
-  "description": "This connector will be used to invoke Salesforce, as well as to subscribe for events...",
-  "id": "@ICS_SF_CONNECTOR_NAME@",
-  "lastUpdated": "2018-05-06T09:43:49.862+0000",
-  "lastUpdatedBy": "cloud.admin",
-  "links": [
-    {
-      "href": "@ICS_CONNECTOR_SF_URI@",
-      "rel": "self"
-    },
-    {
-      "href": "@ICS_CONNECTOR_SF_URI@",
-      "rel": "canonical"
-    }
-  ],
-  "lockedFlag": false,
-  "metadataDownloadState": "COMPLETE",
-  "metadataDownloadSupportedFlag": true,
-  "name": "s2viia_salesforce_conn1",
-  "percentageComplete": 100,
-  "role": "SOURCE_AND_TARGET",
   "securityPolicy": "CUSTOM",
-  "securityPolicyInfo": [
-    {
-      "securityPolicy": "CUSTOM",
-      "securityProperties": [
-        {
-          "displayName": "Username",
-          "hasAttachment": false,
-          "hiddenFlag": false,
-          "propertyGroup": "CREDENTIALS",
-          "propertyName": "username",
-          "propertyType": "STRING",
-          "requiredFlag": true
-        },
-        {
-          "displayName": "Password",
-          "hasAttachment": false,
-          "hiddenFlag": false,
-          "propertyGroup": "CREDENTIALS",
-          "propertyName": "password",
-          "propertyType": "PASSWORD",
-          "requiredFlag": true
-        }
-      ]
-    }
-  ],
   "securityProperties": [
     {
       "displayName": "Username",
@@ -92,8 +38,5 @@
       "propertyValue": "@ICS_CONNECTOR_SF_PASSWORD@",
       "requiredFlag": true
     }
-  ],
-  "status": "CONFIGURED",
-  "usage": 1,
-  "usageActive": 1
+  ]
 }
