@@ -1,0 +1,105 @@
+{
+  "adapterType": {
+    "displayName": "Oracle Sales Cloud",
+    "name": "osc",
+    "type": "PREINSTALLED"
+  },
+  "agentRequired": false,
+  "agentSupported": false,
+  "connectionProperties": [
+    {
+      "displayName": "OSC Services Catalog WSDL URL",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "targetWSDLURL",
+      "propertyType": "WSDL_URL",
+      "propertyValue": "@ICS_CONNECTOR_SC_OSC_SERVICE_CATALOG_WSDL_URL@",
+      "requiredFlag": true
+    },
+    {
+      "displayName": "Interface Catalog URL (optional)",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "interfaceCatalogURL",
+      "propertyType": "URL",
+      "requiredFlag": false
+    }
+  ],
+  "created": "2018-05-06T09:41:09.427+0000",
+  "createdBy": "cloud.admin",
+  "description": "This connector will be used during the SaaS Demo that involves a chatbot talking to SalesCloud and ERP Cloud in the backend.",
+  "id": "@ICS_SC_CONNECTOR_NAME@",
+  "lastUpdated": "2018-05-06T09:48:15.621+0000",
+  "lastUpdatedBy": "cloud.admin",
+  "links": [
+    {
+      "href": "@ICS_CONNECTOR_SC_URI@",
+      "rel": "self"
+    },
+    {
+      "href": "@ICS_CONNECTOR_SC_URI@",
+      "rel": "canonical"
+    }
+  ],
+  "lockedFlag": false,
+  "metadataDownloadState": "NOT_STARTED",
+  "metadataDownloadSupportedFlag": true,
+  "name": "TheCastle_SaaSDemo_SalesCloud_conn1",
+  "percentageComplete": 100,
+  "role": "TARGET",
+  "securityPolicy": "USERNAME_PASSWORD_TOKEN",
+  "securityPolicyInfo": [
+    {
+      "securityPolicy": "USERNAME_PASSWORD_TOKEN",
+      "securityProperties": [
+        {
+          "displayName": "Username",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "username",
+          "propertyType": "STRING",
+          "propertyValue": "@ICS_CONNECTOR_SC_USERNAME@",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Password",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "password",
+          "propertyType": "PASSWORD",
+          "propertyValue": "@ICS_CONNECTOR_SC_PASSWORD@",
+          "requiredFlag": true
+        }
+      ]
+    }
+  ],
+  "securityProperties": [
+    {
+      "displayName": "Username",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CREDENTIALS",
+      "propertyName": "username",
+      "propertyType": "STRING",
+      "propertyValue": "SCM_IMPL",
+      "requiredFlag": true
+    },
+    {
+      "displayName": "Password",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CREDENTIALS",
+      "propertyName": "password",
+      "propertyType": "PASSWORD",
+      "propertyValue": "*****",
+      "requiredFlag": true
+    }
+  ],
+  "status": "CONFIGURED",
+  "usage": 1,
+  "usageActive": 1
+}

@@ -14,13 +14,13 @@ if [ ! -f integration.properties ]; then
     exit 1
 fi
 
-# 1. We are going to set our environmental properties, by sourcing the env-[DEV|TEST|PROD] file that you wish to use.
+# 1. We are going to set our environmental properties, by sourcing the integration.properties file that you wish to use.
 
 source ./integration.properties
 
 # 2. Build and Configure the IAR integration archive.
 
-# Keeping the original IAR in GIT repo/artifactory, until until we find value on expanding it.
+# Keeping the original IAR in GIT repo/artifactory, until we find value on expanding it.
 #jar cvf ${ICS_INTEGRATION_IAR_FILENAME} icspackage
 
 # Setup Connectors with environment variables

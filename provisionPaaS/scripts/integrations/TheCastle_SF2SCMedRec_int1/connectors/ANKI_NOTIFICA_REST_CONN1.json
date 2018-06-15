@@ -1,0 +1,498 @@
+{
+  "adapterType": {
+    "displayName": "REST",
+    "name": "rest",
+    "type": "PREINSTALLED"
+  },
+  "agentRequired": false,
+  "agentSupported": true,
+  "connectionProperties": [
+    {
+      "acceptableKeys": [
+        "REST API Base URL",
+        "Metadata Catalog URL",
+        "Swagger Definition URL",
+        "RAML Definition URL"
+      ],
+      "displayName": "Connection Type",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "connectionType",
+      "propertyType": "CHOICE",
+      "propertyValue": "restUrl",
+      "requiredFlag": true
+    },
+    {
+      "acceptableKeys": [
+        "TLSv1.1",
+        "TLSv1.2"
+      ],
+      "displayName": "TLS Version",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "tlsVersion",
+      "propertyType": "CHOICE",
+      "requiredFlag": false
+    },
+    {
+      "displayName": "Connection URL",
+      "hasAttachment": false,
+      "hiddenFlag": false,
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "connectionUrl",
+      "propertyType": "URL",
+      "propertyValue": "@ICS_REST_APIs4Notifications_CONNECTION_URL@",
+      "requiredFlag": true
+    }
+  ],
+  "created": "2018-05-06T09:41:09.426+0000",
+  "createdBy": "cloud.admin",
+  "id": "@ICS_REST_APIs4Notifications_CONNECTOR_NAME@",
+  "lastUpdated": "2018-05-06T09:42:33.559+0000",
+  "lastUpdatedBy": "cloud.admin",
+  "links": [
+    {
+      "href": "@ICS_REST_APIs4Notifications_URI@",
+      "rel": "self"
+    },
+    {
+      "href": "@ICS_REST_APIs4Notifications_URI@",
+      "rel": "canonical"
+    }
+  ],
+  "lockedFlag": false,
+  "metadataDownloadState": "COMPLETE",
+  "metadataDownloadSupportedFlag": true,
+  "name": "Anki-Notifications-Rest-conn1",
+  "percentageComplete": 100,
+  "role": "SOURCE_AND_TARGET",
+  "securityPolicy": "NONE",
+  "securityPolicyInfo": [
+    {
+      "securityPolicy": "BASIC_AUTH",
+      "securityProperties": [
+        {
+          "displayName": "Username",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "username",
+          "propertyType": "STRING",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Password",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "password",
+          "propertyType": "PASSWORD",
+          "requiredFlag": true
+        }
+      ]
+    },
+    {
+      "securityPolicy": "OAUTH_CLIENT_CREDENTIALS",
+      "securityProperties": [
+        {
+          "displayName": "Access Token URI",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "OTHER",
+          "propertyName": "oauth.access.token.uri",
+          "propertyType": "STRING",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Client Id",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth.client.id",
+          "propertyType": "STRING",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Client Secret",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth.client.secret",
+          "propertyType": "PASSWORD",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Scope",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "OTHER",
+          "propertyName": "oauth.scope",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "Auth Request Media Type",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "OTHER",
+          "propertyName": "oauth.request.content.type",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        }
+      ]
+    },
+    {
+      "securityPolicy": "OAUTH_RESOURCE_OWNER_PASSWORD_CREDENTIALS",
+      "securityProperties": [
+        {
+          "displayName": "Access Token URI",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "OTHER",
+          "propertyName": "oauth.access.token.uri",
+          "propertyType": "STRING",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Client Id",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth.client.id",
+          "propertyType": "STRING",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Client Secret",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth.client.secret",
+          "propertyType": "PASSWORD",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Scope",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "OTHER",
+          "propertyName": "oauth.scope",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "Auth Request Media Type",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "OTHER",
+          "propertyName": "oauth.request.content.type",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "Username",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "username",
+          "propertyType": "STRING",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Password",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "password",
+          "propertyType": "PASSWORD",
+          "requiredFlag": true
+        }
+      ]
+    },
+    {
+      "securityPolicy": "OAUTH_AUTHORIZATION_CODE_CREDENTIALS",
+      "securityProperties": [
+        {
+          "displayName": "Client Id",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth.client.id",
+          "propertyType": "STRING",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Client Secret",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth.client.secret",
+          "propertyType": "PASSWORD",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Authorization Code URI",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth.auth.code.uri",
+          "propertyType": "STRING",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Access Token URI",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth.access.token.uri",
+          "propertyType": "STRING",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Scope",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth.scope",
+          "propertyType": "STRING",
+          "requiredFlag": true
+        }
+      ]
+    },
+    {
+      "securityPolicy": "CUSTOM_THREE_LEGGED",
+      "securityProperties": [
+        {
+          "displayName": "Authorization Request",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "authRequest",
+          "propertyType": "TEXT",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Access Token Request",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "accessTokenRequest",
+          "propertyType": "TEXT",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Refresh Token Request",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "refreshTokenRequest",
+          "propertyType": "TEXT",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "$auth_code",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "$auth_code",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "$access_token",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "$access_token",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "$refresh_token",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "$refresh_token",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "$expiry",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "$expiry",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "$token_type",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "$token_type",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "access_token_usage",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "accessTokenUsage",
+          "propertyType": "TEXT",
+          "requiredFlag": false
+        }
+      ]
+    },
+    {
+      "securityPolicy": "CUSTOM_TWO_LEGGED",
+      "securityProperties": [
+        {
+          "displayName": "Access Token Request",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "accessTokenRequest",
+          "propertyType": "TEXT",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Refresh Token Request",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "refreshTokenRequest",
+          "propertyType": "TEXT",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "$access_token",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "$access_token",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "$refresh_token",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "$refresh_token",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "$expiry",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "$expiry",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "$token_type",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "$token_type",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        },
+        {
+          "displayName": "access_token_usage",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "accessTokenUsage",
+          "propertyType": "TEXT",
+          "requiredFlag": false
+        }
+      ]
+    },
+    {
+      "securityPolicy": "CUSTOM_SINGLE_TOKEN",
+      "securityProperties": [
+        {
+          "displayName": "API Key",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "accessToken",
+          "propertyType": "PASSWORD",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "API Key Usage",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "accessTokenUsage",
+          "propertyType": "TEXT",
+          "requiredFlag": false
+        }
+      ]
+    },
+    {
+      "securityPolicy": "OAUTH_ONE_TOKEN_BASED",
+      "securityProperties": [
+        {
+          "displayName": "Consumer Key",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth_consumer_key",
+          "propertyType": "STRING",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Consumer Secret",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth_consumer_secret",
+          "propertyType": "PASSWORD",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Token",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth_token",
+          "propertyType": "STRING",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Token Secret",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "oauth_token_secret",
+          "propertyType": "PASSWORD",
+          "requiredFlag": true
+        },
+        {
+          "displayName": "Realm",
+          "hasAttachment": false,
+          "hiddenFlag": false,
+          "propertyGroup": "CREDENTIALS",
+          "propertyName": "realm",
+          "propertyType": "STRING",
+          "requiredFlag": false
+        }
+      ]
+    },
+    {
+      "securityPolicy": "NONE"
+    }
+  ],
+  "status": "CONFIGURED",
+  "usage": 1,
+  "usageActive": 1
+}

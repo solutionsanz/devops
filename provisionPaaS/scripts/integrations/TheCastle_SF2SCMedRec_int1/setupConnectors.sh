@@ -1,7 +1,7 @@
 
-#	Connector: Sales Cloud:
-
 pathConnectors="connectors"
+
+#	Connector: Sales Cloud:
 
 cp ${pathConnectors}/${ICS_CONNECTOR_SC_CONFIG_NAME} ${pathConnectors}/${pathConnectors}/temp_${ICS_CONNECTOR_SC_CONFIG_NAME}
 sed -i "s/@ICS_SC_CONNECTOR_NAME@/${ICS_SC_CONNECTOR_NAME}/g" ${pathConnectors}/temp_${ICS_CONNECTOR_SC_CONFIG_NAME}
