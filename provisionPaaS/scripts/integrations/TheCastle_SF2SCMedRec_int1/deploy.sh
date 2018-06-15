@@ -26,6 +26,7 @@ source ./integration.properties
 # Setup Connectors with environment variables
 ./setupConnectors.sh
 
+exit 0
 
 # 3. Import the ICS Integration archive (IAR)
 
