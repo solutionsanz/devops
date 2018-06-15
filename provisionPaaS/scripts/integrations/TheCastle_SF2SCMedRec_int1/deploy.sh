@@ -51,9 +51,10 @@ sleep 5
 # 4. Configure and activate my ICS Connectors:
 
 # 	4.1 Sales Cloud Connector
+pathConnectors="connectors"
 
 # Configure Sales Cloud Connector:
-curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Content-Type:application/json" -X PUT -d @${ICS_CONNECTOR_SC_CONFIG_NAME} ${ICS_CONNECTOR_SC_URI} -v
+curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Content-Type:application/json" -X PUT -d @${pathConnectors}/${ICS_CONNECTOR_SC_CONFIG_NAME} ${ICS_CONNECTOR_SC_URI} -v
 
 # Sleep 5 seconds to give time to complete before configuring the next adapter.
 sleep 5
@@ -61,7 +62,20 @@ sleep 5
 #	4.2 Salesforce Connector
 
 # Configure Salesforce Connector:
-curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Content-Type:application/json" -X PUT -d @${ICS_CONNECTOR_SF_CONFIG_NAME} ${ICS_CONNECTOR_SF_URI} -v
+curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Content-Type:application/json" -X PUT -d @${pathConnectors}/${ICS_CONNECTOR_SF_CONFIG_NAME} ${ICS_CONNECTOR_SF_URI} -v
+
+
+#	4.3 Anki-MedRec Connector
+
+# Configure Anki-MedRec Connector:
+curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Content-Type:application/json" -X PUT -d @${pathConnectors}/${ICS_REST_ANKIMEDREC_CONFIG_NAME} ${ICS_REST_ANKIMEDREC_URI} -v
+
+
+#	4.4 APIs4Notifications Connector
+
+# Configure APIs4Notifications Connector:
+curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Content-Type:application/json" -X PUT -d @${pathConnectors}/${ICS_REST_APIs4Notifications_CONFIG_NAME} ${ICS_REST_APIs4Notifications_URI} -v
+
 
 # Sleep 5 seconds to give time to complete before Activating the ICS Integration.
 sleep 5
