@@ -3,8 +3,8 @@
 #############  ENVIRONMENT PROPERTIES:
 ####################################################
 
-export ICS_BASE_URI="https:\/\/XXX-XXX.uscom-east-1.oraclecloud.com:443\/icsapis"
-export ICS_USERNAME='cloud.admin'
+export ICS_BASE_URI="https://XXX-XXX.uscom-east-1.oraclecloud.com:443"
+export ICS_USERNAME='XXX'
 export ICS_PASSWD='XXX'
 
 
@@ -14,47 +14,77 @@ export ICS_PASSWD='XXX'
 
 export ICS_INTEGRATION_NAME="SF2SCMEDREC_01.00.0000"
 export ICS_INTEGRATION_IAR_FILENAME="${ICS_INTEGRATION_NAME}.iar"
-export ICS_INTEGRATION_POST_IMPORT_URI="https://XXX-XXX.uscom-east-1.oraclecloud.com:443/icsapis/v2/integrations/import"
-export ICS_INTEGRATION_POST_ACTIVATE_URI="https://XXX-XXX.uscom-east-1.oraclecloud.com:443/icsapis/v2/integrations/${ICS_INTEGRATION_NAME}/01.00.0000/activate"
+# INT_ID consists of the code and the version separated by the | (vertical line) character (%7C).
+export INT_ID="SF2SCMEDREC%7C01.00.0000"
+
+# (DEPRECATED) export ICS_INTEGRATION_POST_IMPORT_URI="${ICS_BASE_URI}/icsapis/v2/integrations/import"
+export ICS_INTEGRATION_POST_IMPORT_URI="${ICS_BASE_URI}/ic/api/integration/v1/integrations/archive"
+
+# Activate:
+# (DEPRECATED) export ICS_INTEGRATION_POST_ACTIVATE_URI="${ICS_BASE_URI}/icsapis/v2/integrations/${ICS_INTEGRATION_NAME}/01.00.0000/activate"
+
+# Delete Integration API:
+export ICS_INTEGRATION_DELETE_IMPORT_URI="${ICS_BASE_URI}/ic/api/integration/v1/integrations/${INT_ID}"
+
 
 
 ####################################################
 #############  CONNECTORS:
-#####
-##### Note: Properties below will be overriden using 'sed'.
-##### Please scape all slashes, i.e. \/
 ####################################################
 
-#	Connector: Sales Cloud:
+#####################	Connector: Sales Cloud:
 
 export ICS_SC_CONNECTOR_NAME="THECASTL_SAASDEMO_SALESCLO_CONN1"
 export ICS_CONNECTOR_SC_CONFIG_NAME="${ICS_SC_CONNECTOR_NAME}.json"
-export ICS_CONNECTOR_SC_URI="${ICS_BASE_URI}\/v2\/connections\/${ICS_SC_CONNECTOR_NAME}"
-export ICS_CONNECTOR_SC_OSC_SERVICE_CATALOG_WSDL_URL="https:\/\/XXX-XXX-fa-ext.oracledemos.com\/fndAppCoreServices\/ServiceCatalogService?wsdl"
-export ICS_CONNECTOR_SC_OSC_EVENTS_CATALOG_WSDL_URL="https:\/\/XXX-XXX-fa-ext.oracledemos.com\/soa-infra"
-export ICS_CONNECTOR_SC_USERNAME="SCM_IMPL"
-export ICS_CONNECTOR_SC_PASSWORD="XXX"
 
-#	Connector: SalesForce:
+# (DEPRECATED) export ICS_CONNECTOR_SC_URI="${ICS_BASE_URI}/v2/connections/${ICS_SC_CONNECTOR_NAME}"
+export ICS_CONNECTOR_SC_URI="${ICS_BASE_URI}/ic/api/integration/v1/connections/${ICS_SC_CONNECTOR_NAME}"
+
+export ICS_CONNECTOR_SC_OSC_SERVICE_CATALOG_WSDL_URL="https://XXX-XXX-fa-ext.oracledemos.com/fndAppCoreServices/ServiceCatalogService?wsdl"
+export ICS_CONNECTOR_SC_OSC_EVENTS_CATALOG_WSDL_URL="https://XXX-XXX-fa-ext.oracledemos.com/soa-infra"
+export ICS_CONNECTOR_SC_USERNAME="SCM_IMPL"
+export ICS_CONNECTOR_SC_PASSWORD="Yna94897"
+
+# Delete Connector API:
+export ICS_SC_CONNECTOR_DELETE="${ICS_BASE_URI}/ic/api/integration/v1/connections/${ICS_SC_CONNECTOR_NAME}"
+
+#####################	Connector: SalesForce:
 
 export ICS_SF_CONNECTOR_NAME="S2VIIA_SALESFORCE_CONN1"
 export ICS_CONNECTOR_SF_CONFIG_NAME="${ICS_SF_CONNECTOR_NAME}.json"
-export ICS_CONNECTOR_SF_URI="${ICS_BASE_URI}\/v2\/connections\/${ICS_SF_CONNECTOR_NAME}"
-export ICS_CONNECTOR_SF_USERNAME="devgregoryorigami@gmail.com"
-export ICS_CONNECTOR_SF_PASSWORD="XXX"
 
-#	Connector: REST Anki-MedRec:
+# (DEPRECATED) export ICS_CONNECTOR_SF_URI="${ICS_BASE_URI}/v2/connections/${ICS_SF_CONNECTOR_NAME}"
+export ICS_CONNECTOR_SF_URI="${ICS_BASE_URI}/ic/api/integration/v1/connections/${ICS_SF_CONNECTOR_NAME}"
+
+export ICS_CONNECTOR_SF_USERNAME="devgregoryorigami@gmail.com"
+export ICS_CONNECTOR_SF_PASSWORD="origamiman15WRKFkn8eYOPeI757OzhVHs0V"
+
+# Delete Connector API:
+export ICS_SF_CONNECTOR_DELETE="${ICS_BASE_URI}/ic/api/integration/v1/connections/${ICS_SF_CONNECTOR_NAME}"
+
+#####################	Connector: REST Anki-MedRec:
 
 export ICS_REST_ANKIMEDREC_CONNECTOR_NAME="ANKI_MEDREC_REST_CONN1"
 export ICS_REST_ANKIMEDREC_CONFIG_NAME="${ICS_REST_ANKIMEDREC_CONNECTOR_NAME}.json"
-export ICS_REST_ANKIMEDREC_URI="${ICS_BASE_URI}\/v2\/connections\/${ICS_REST_ANKIMEDREC_CONNECTOR_NAME}"
-export ICS_REST_ANKIMEDREC_CONNECTION_URL="https:\/\/APIs4MedRec-XXX.uscom-east-1.oraclecloud.com:443"
+
+# (DEPRECATED) export ICS_REST_ANKIMEDREC_URI="${ICS_BASE_URI}/v2/connections/${ICS_REST_ANKIMEDREC_CONNECTOR_NAME}"
+export ICS_REST_ANKIMEDREC_URI="${ICS_BASE_URI}/ic/api/integration/v1/connections/${ICS_REST_ANKIMEDREC_CONNECTOR_NAME}"
+
+export ICS_REST_ANKIMEDREC_CONNECTION_URL="https://XXX-XXX.uscom-east-1.oraclecloud.com:443"
+
+# Delete Connector API:
+export ICS_REST_ANKIMEDREC_CONNECTOR_DELETE="${ICS_BASE_URI}/ic/api/integration/v1/connections/${ICS_REST_ANKIMEDREC_CONNECTOR_NAME}"
 
 
-#	Connector: REST APIs4Notifications:
+#####################	Connector: REST APIs4Notifications:
 
 export ICS_REST_APIs4Notifications_CONNECTOR_NAME="ANKI_NOTIFICA_REST_CONN1"
 export ICS_REST_APIs4Notifications_CONFIG_NAME="${ICS_REST_APIs4Notifications_CONNECTOR_NAME}.json"
-export ICS_REST_APIs4Notifications_URI="${ICS_BASE_URI}\/v2\/connections\/${ICS_REST_APIs4Notifications_CONNECTOR_NAME}"
-export ICS_REST_APIs4Notifications_CONNECTION_URL="https:\/\/APIs4Notifications-XXX.uscom-east-1.oraclecloud.com:443"
 
+# (DEPRECATED) export ICS_REST_APIs4Notifications_URI="${ICS_BASE_URI}/v2/connections/${ICS_REST_APIs4Notifications_CONNECTOR_NAME}"
+export ICS_REST_APIs4Notifications_URI="${ICS_BASE_URI}/ic/api/integration/v1/connections/${ICS_REST_APIs4Notifications_CONNECTOR_NAME}"
+
+export ICS_REST_APIs4Notifications_CONNECTION_URL="https://XXX-XXX.uscom-east-1.oraclecloud.com:443"
+
+# Delete Connector API:
+export ICS_REST_APIs4Notifications_CONNECTOR_DELETE="${ICS_BASE_URI}/ic/api/integration/v1/connections/${ICS_REST_APIs4Notifications_CONNECTOR_NAME}"
