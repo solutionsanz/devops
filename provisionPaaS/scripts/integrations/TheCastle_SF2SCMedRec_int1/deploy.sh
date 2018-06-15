@@ -26,11 +26,9 @@ source ./integration.properties
 # Setup Connectors with environment variables
 ./setupConnectors.sh
 
-exit 0
-
 # 3. Import the ICS Integration archive (IAR)
-
-curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X PUT -F "file=@${ICS_INTEGRATION_IAR_FILENAME};type=multipart/form-data" ${ICS_INTEGRATION_POST_IMPORT_URI} -v
+pathIntegration="integration"
+curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X PUT -F "file=@${pathIntegration}/${ICS_INTEGRATION_IAR_FILENAME};type=multipart/form-data" ${ICS_INTEGRATION_POST_IMPORT_URI} -v
 
 # Sleep 5 seconds to give time to complete before configuring the adapters.
 sleep 5
