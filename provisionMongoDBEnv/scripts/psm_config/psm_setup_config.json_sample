@@ -1,0 +1,7 @@
+{ 
+    "username":"TARGET_OCI_USER_GOES_HERE",
+    "password":"TARGET_OCI_PASSWORD_GOES_HERE",
+    "identityDomain":"TARGET_IDCS_BASED_IDENTITY_DOMAIN_GOES_HERE e.g. idcs-b67ea304313a40bf9b4bc22112345abcdef",
+    "region":"TARGET_REGION_IDCS_BASED_IDENTITY_DOMAIN_GOES_HERE e.g. us",
+    "outputFormat":"json"
+}

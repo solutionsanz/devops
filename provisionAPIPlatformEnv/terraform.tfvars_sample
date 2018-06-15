@@ -1,0 +1,26 @@
+##################################################################################################################
+####################################################### Build Instance Name ######################################
+
+prefix = "dev"
+
+
+####################################################### My Envs ######################################
+################ Dev Environment #######################
+### Note: for IDCS envs, terraform opc provider requires: 
+###         - idDomain: Compute's "Service Instance ID" for idDomain,  (Not the Storage Service ID... It might be different)
+###         - storage_endpoint: IDCS based enviornments require Storage_Endpoint to point to the PERMANENT REST EndPoint and its long ID for the storage_service_id. 
+###				This, at runtime, will form the full REST Emdpoint Permanent URL, 
+###           	e.g.  https://Storage-8722b98fd54b4ae0b9abf6a4da4848d9.us.storage.oraclecloud.com/v1/Storage-8722b98fd54b4ae0b9abf6a4da4848d9
+
+ociUser = "OIC_USER_GOES_HERE e.g. cloud.admin"
+ociPass = "OIC_PASSWD_GOES_HERE"
+dbaPass = "DBA_PASSWD_GOES_HERE"
+wlPass = "WEBLOGIC_PASSWD_GOES_HERE"
+idDomain = "SERVICE_INSTANCE_ID_GOES_HERE e.g. 598312345"
+idDomainName = "IDENTITY_DOMAIN_NAME_GOES_HERE e.g. gse00012345"
+apiEndpoint = "COMPUTE_API_ENDPOINT_GOES_HERE e.g. https://api-Z56.compute.us6.oraclecloud.com/"
+storage_endpoint = "PERMANENT_STORAGE_ENDPOINT_GOES_HERE e.g. https://Storage-8722b98fd54b4ae0b9abf6a4da4848d9.us.storage.oraclecloud.com"
+storage_service_id= "PERMANENT_STORAGE_ID_GOES_HERE e.g. 8722b98fd54b4ae0b9abf6a4da4848d9"
+
+###################################################
+##################################################################################################################

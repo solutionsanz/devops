@@ -1,0 +1,306 @@
+---
+  template:
+    templateName: "@TEMPLATE_NAME@"
+    templateVersion: "@TEMPLATE_VERSION@"
+    templateCategory: RESTRICTED
+    templateDescription: Integration Cloud
+
+    #----------------------------------------
+    # PARAMETERS
+    #----------------------------------------
+    parameters:
+      #----------------------------------------
+      # Configuration
+      #----------------------------------------
+      serviceName:
+        label: Service Name
+        description: "Unique service name for this instance."
+        type: String
+        mandatory: true
+        default: "@APP_NAME_GOES_HERE@OIC"
+        maxLength: 48
+      sshPublicKey:
+        label: SSH Public Key
+        description: SSH public key
+        type: ssh
+        mandatory: true
+        default: "@PUBLIC_KEY_GOES_HERE@"
+        sensitive: true
+      stackRegion:
+        label: Region
+        description: Region
+        #type: RegionConfig
+        type: String
+        mandatory: false
+        sensitive: false
+        customize:
+          serviceType: IntegrationCloud
+          regionType: OCICLASSIC
+
+      #----------------------------------------
+      # BYOL
+      #----------------------------------------
+      byol:
+        label: Bring Your Own License
+        description: Bring Your Own License
+        type: Boolean
+        mandatory: true
+        default: false
+        sensitive: false
+
+      #----------------------------------------
+      # SERVICE
+      #----------------------------------------
+      icNumberNodes:
+        label: Number Nodes
+        description: Initial number of nodes (managed servers)
+        type: Number
+        mandatory: false
+        default: 2
+        sensitive: false
+        minValue: 1
+      featureSet:
+        label: Feature Set
+        description: Enabled feature set
+        type: String
+        mandatory: true
+        default: "Integration and Process"
+        sensitive: false
+        allowedValues: [ "Integration", "Integration and Process", "Integration and Process + Integration Analytics" ]
+
+      #----------------------------------------
+      # BACKUP AND RECOVERY CONFIGURATION
+      #----------------------------------------
+      cloudStorageInstance:
+        label: Cloud Storage Account Name
+        description: "Cloud storage account name. The name has to be in the form https|http://<storagedomain>/{version}/<schema name> or <storage service name>-<identity domain name>. E.g. Storage-ahaus"
+        # description: "Cloud storage instance. The name has to be in the form https|http://<storagedomain>/{version}/<schema name>/<container name> or <storage service name>-<identity domain name>/<container name>. E.g:storagesvc999-usoracleaccoutrial00999/backupContainer."
+        type: String
+        #default: {"Fn::GetParam": _account.integrationcloud.cloudstorageuri}
+        default: "https://@ID_DOMAIN_NAME_GOES_HERE@.us.storage.oraclecloud.com/v1/Storage-@ID_DOMAIN_NAME_GOES_HERE@/"
+        mandatory: true
+        sensitive: false
+      cloudStorageUser:
+        label: Cloud Storage user Name
+        description: Cloud storage user name
+        type: String
+        default: "cloud.admin"
+        mandatory: true
+        sensitive: false
+      cloudStoragePassword:
+        label: Cloud Storage User Password
+        description: Cloud storage user password
+        type: String
+        default: "@OIC_PASSWORD_GOES_HERE@"
+        mandatory: true
+        sensitive: true
+
+      #----------------------------------------
+      # DATABASE
+      #----------------------------------------
+      databaseAdminPassword:
+        label: Database Administrative Password
+        description: "Password to administer the database. Password must be between 8 and 30 characters with at least one lower case letter, one upper case letter, one number and one special character (_,#). For example, Ach1z0#d"
+        type: Password
+        default: "@DBA_PASSWORD_GOES_HERE@"
+        minLength: 8
+        maxLength: 30
+        allowedPattern: "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*[0-9])[a-zA-Z]([a-zA-Z0-9_#])+$"
+        mandatory: true
+        sensitive: true
+        constraintDescription: "Password must be between 8 and 30 characters with at least one lower case letter, one upper case letter, one number and one special character (_,#). For example, Ach1z0#d"
+        #autoGenValue: { "Fn::Join": ["", ["D", {"Fn::GetRandom" : [8, ALPHANUMERIC] }, "#"]] }
+
+    #----------------------------------------
+    # PARAMETER GROUPS
+    #----------------------------------------
+    parameterGroups:
+      - label: Service
+        parameters: [ sshPublicKey, featureSet, byol, icNumberNodes ]
+      - label: Backup and Recovery Configuration
+        parameters: [ cloudStorageInstance, cloudStorageUser, cloudStoragePassword ]
+      - label: Database Administrator Password
+        parameters: [ databaseAdminPassword ]
+
+    #----------------------------------------
+    # CONDITIONS
+    #----------------------------------------
+    conditions:
+      # number of nodes
+      isOneNode:   { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 1 ] }
+      isTwoNode:   { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 2 ] }
+      isThreeNode: { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 3 ] }
+      isFourNode:  { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 4 ] }
+      isFiveNode:  { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 5 ] }
+      isSixNode:   { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 6 ] }
+      isSevenNode: { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 7 ] }
+      # feature set
+      isIcs:  { "Fn::Equals" : [ { "Fn::GetParam" : featureSet }, "Integration" ] }
+      isIcsPcs:  { "Fn::Equals" : [ { "Fn::GetParam" : featureSet }, "Integration and Process" ] }
+      isIcsPcsIa:  { "Fn::Equals" : [ { "Fn::GetParam" : featureSet }, "Integration and Process + Integration Analytics" ] }
+      # region related
+      emptyRegion: { "Fn::Empty": { "Fn::GetParam": stackRegion.region } }
+      # byol
+      isByol: { "Fn::Equals": [ true, "Fn::GetParam": byol ] }
+      isNotByol: { "Fn::Equals": [ false, "Fn::GetParam": byol ] }
+
+    #----------------------------------------
+    # RESOURCES
+    #----------------------------------------
+    resources:
+      #----------------------------------------
+      # DATABASE BACKUP CONTAINER
+      #----------------------------------------
+      dbaasBackupContainer:
+        type: OSS.Container
+        parameters:
+          cloudStorageContainer: { "Fn::Join" : [ "", [ { "Fn::GetParam" : cloudStorageInstance }, "database_backup_", { "Fn::GetParam" : serviceName } ] ] }
+          cloudStorageUser: { "Fn::GetParam" : cloudStorageUser }
+          cloudStoragePassword: { "Fn::GetParam" : cloudStoragePassword }
+          createStorageContainerIfMissing: true
+
+      #----------------------------------------
+      # DATABASE
+      #----------------------------------------
+      dbaas:
+        type: dbaas
+        parameters:
+          serviceName: { "Fn::Join" : ["", [ { "Fn::GetParam" : serviceName }, "db" ] ] }
+          version: 12.1.0.2
+          level: PAAS
+          edition: "EE"
+          subscriptionType: HOURLY
+          description: DBaaS Instance
+          shape: { "Fn::If" : [ "isOneNode",   "oc1m",
+                 { "Fn::If" : [ "isTwoNode",   "oc1m",
+                 { "Fn::If" : [ "isThreeNode", "oc2m",
+                 { "Fn::If" : [ "isFourNode",  "oc2m",
+                 { "Fn::If" : [ "isFiveNode",  "oc3m",
+                 { "Fn::If" : [ "isSixNode",   "oc3m",
+                 { "Fn::If" : [ "isSevenNode", "oc4m",
+                                               "oc4m" ]}]}]}]}]}]}]}
+          vmPublicKeyText: { "Fn::GetParam" : sshPublicKey }
+          region: { "Fn::If" : [ emptyRegion, "OPC::NoValue", { "Fn::GetParam": stackRegion.region } ] }
+          parameters:
+            -
+              type: db
+              usableStorage: { "Fn::If" : [ "isOneNode",   "125",
+                             { "Fn::If" : [ "isTwoNode",   "250",
+                             { "Fn::If" : [ "isThreeNode", "375",
+                             { "Fn::If" : [ "isFourNode",  "500",
+                             { "Fn::If" : [ "isFiveNode",  "625",
+                             { "Fn::If" : [ "isSixNode",   "750",
+                             { "Fn::If" : [ "isSevenNode", "875",
+                                                          "1000" ]}]}]}]}]}]}]}
+              adminPassword: { "Fn::GetParam" : databaseAdminPassword }
+              sid: ORCL
+              failoverDatabase: "no"
+              disasterRecovery: "no"
+              isRac: "no"
+              backupDestination: BOTH
+              # a storage container is created automatically for database backup, including a default name:
+              # database_backup_<stack service name>
+              cloudStorageContainer: { "Fn::Join" : [ "", [ { "Fn::GetParam" : cloudStorageInstance }, "database_backup_", { "Fn::GetParam" : serviceName } ] ] }
+              cloudStorageUser: { "Fn::GetParam" : cloudStorageUser }
+              cloudStoragePwd: { "Fn::GetParam" : cloudStoragePassword }
+              createStorageContainerIfMissing: true
+        depends_on:
+          - dbaasBackupContainer
+
+      #----------------------------------------
+      # OIC BACKUP CONTAINER
+      #----------------------------------------
+      icBackupContainer:
+        type: OSS.Container
+        parameters:
+          cloudStorageContainer: { "Fn::Join" : [ "", [ { "Fn::GetParam" : cloudStorageInstance }, "ic_backup_", { "Fn::GetParam" : serviceName } ] ] }
+          cloudStorageUser: { "Fn::GetParam" : cloudStorageUser }
+          cloudStoragePassword: { "Fn::GetParam" : cloudStoragePassword }
+          createStorageContainerIfMissing: true
+
+      #----------------------------------------
+      # OIC
+      #----------------------------------------
+      integrationCloud:
+        type: IntegrationCloud
+        parameters:
+          serviceName:  { "Fn::Join" : [ "", [ { "Fn::GetParam" : serviceName }, "ic" ] ] }
+          serviceLevel: PAAS
+          # TODO
+          # unclear if this is the correct access:
+          serviceDescription: { "Fn::GetParam" : description }
+          serviceVersion: "1.0"
+          edition: EE
+          featureSet:  { "Fn::If" : [ "isIcs",    "ics",
+                       { "Fn::If" : [ "isIcsPcs", "ics_pcs",
+                                                  "ics_pcs" ]}]}
+          vmPublicKeyText: { "Fn::GetParam" : sshPublicKey }
+          region: { "Fn::If" : [ emptyRegion, "OPC::NoValue", { "Fn::GetParam": stackRegion.region } ] }
+          noRollback: false
+          useIdentityService: true
+          cloudStorageContainer: { "Fn::Join" : [ "", [ { "Fn::GetParam" : cloudStorageInstance }, "ic_backup_", { "Fn::GetParam" : serviceName } ] ] }
+          cloudStorageUser: { "Fn::GetParam" : cloudStorageUser }
+          cloudStoragePassword: { "Fn::GetParam" : cloudStoragePassword }
+          cloudStorageContainerAutoGenerate: true
+          meteringFrequency: HOURLY
+          isOICBYOL: { "Fn::GetParam": byol }
+          confirmation: true
+          components:
+            WLS:
+              dbServiceName: { "Fn::GetAtt" : [ dbaas, serviceName ] }
+              dbaName: "SYS"
+              dbaPassword: { "Fn::GetParam" : databaseAdminPassword }
+              managedServerCount: { "Fn::GetParam" : icNumberNodes }
+              componentVersion: 12.2.1.2
+        depends_on:
+          - dbaas
+          - icBackupContainer
+
+      #-----------------------------------------------
+      # OIC BACKUP CONTAINER FOR INTEGRATION ANALYTICS
+      #-----------------------------------------------
+      integrationAnalyticsBackupContainer:
+        type: OSS.Container
+        parameters:
+          cloudStorageContainer: { "Fn::Join" : [ "", [ { "Fn::GetParam" : cloudStorageInstance }, "integration_analytics_backup_", { "Fn::GetParam" : serviceName } ] ] }
+          cloudStorageUser: { "Fn::GetParam" : cloudStorageUser }
+          cloudStoragePassword: { "Fn::GetParam" : cloudStoragePassword }
+          createStorageContainerIfMissing: true
+        condition: isIcsPcsIa
+
+      #----------------------------------------
+      # OIC (INTEGRATION ANALYTICS)
+      #----------------------------------------
+      integrationAnalyticsPod:
+        type: IntegrationCloud
+        parameters:
+          serviceName:  { "Fn::Join" : [ "", [ { "Fn::GetParam" : serviceName }, "ia" ] ] }
+          serviceLevel: PAAS
+          # TODO
+          # unclear if this is the correct access:
+          serviceDescription: { "Fn::GetParam" : description }
+          serviceVersion: "1.0"
+          edition: EE
+          featureSet: "ia"
+          vmPublicKeyText: { "Fn::GetParam" : sshPublicKey }
+          region: { "Fn::If" : [ emptyRegion, "OPC::NoValue", { "Fn::GetParam": stackRegion.region } ] }
+          noRollback: false
+          useIdentityService: true
+          cloudStorageContainer: { "Fn::Join" : [ "", [ { "Fn::GetParam" : cloudStorageInstance }, "integration_analytics_backup_", { "Fn::GetParam" : serviceName } ] ] }
+          cloudStorageUser: { "Fn::GetParam" : cloudStorageUser }
+          cloudStoragePassword: { "Fn::GetParam" : cloudStoragePassword }
+          cloudStorageContainerAutoGenerate: true
+          meteringFrequency: HOURLY
+          isOICBYOL: { "Fn::GetParam": byol }
+          confirmation: true
+          components:
+            WLS:
+              dbServiceName: { "Fn::GetAtt" : [ dbaas, serviceName ] }
+              dbaName: "SYS"
+              dbaPassword: { "Fn::GetParam" : databaseAdminPassword }
+              managedServerCount: { "Fn::GetParam" : icNumberNodes }
+              componentVersion: 12.2.1.2
+        condition: isIcsPcsIa
+        depends_on:
+          - dbaas
+          - integrationAnalyticsBackupContainer

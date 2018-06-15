@@ -1,0 +1,66 @@
+############# psm IntegrationCloud create-service help
+###### SAMPLE PAYLOAD
+#### Required properties are indicated as "required". Replace in the actual payload with real values.
+{
+
+    "toolshome":"",
+    "useIdentityService":"",
+    "backupDestination":"",
+    "cloudStorageContainer":"",
+    "cloudStorageUser":"",
+    "cloudStoragePassword":"",
+    "cloudStorageContainerAutoGenerate":"",
+    "featureSet":"required",
+    "serviceVersion":"required",
+    "confirmation":"required",
+    "displayWLSAndFMWConsole":"",
+    "serviceName":"required",
+    "serviceDescription":"",
+    "serviceLevel":"required",
+    "tags":[
+        {
+            "key":"required",
+            "value":"",
+            "isPlacementTag":""
+        }
+    ],
+    "meteringFrequency":"",
+    "edition":"required",
+    "vmUser":"required",
+    "subnet":"",
+    "region":"",
+    "availabilityDomain":"",
+    "vmPublicKeyText":"",
+    "noRollback":"",
+    "isManaged":"",
+    "managedMode":"",
+    "isMultiTenant":"",
+    "enableNotification":"",
+    "notificationEmail":"",
+    "ipNetwork":"",
+    "isActive":"",
+    "publishTo":"",
+    "isBYOL":"",
+    "serviceEntitlementId":"",
+    "assignPublicIP":"",
+    "standbyRegion":"",
+    "standbyAvailabilityDomain":"",
+    "standbyIpNetwork":"",
+    "standbyIpReservations":[],
+    "useOAuthForStorage":"",
+    "components":{
+        "WLS":{
+            "managedServerCount":"required",
+            "domainPartitionCount":"required",
+            "connectString":"",
+            "dbaName":"required",
+            "dbaPassword":"required",
+            "dbServiceName":"required",
+            "pdbServiceName":"",
+            "shape":"",
+            "adminUserName":"required",
+            "adminPassword":"",
+            "ipReservations":[]
+        }
+    }
+}

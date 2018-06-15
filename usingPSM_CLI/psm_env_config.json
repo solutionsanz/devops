@@ -1,0 +1,12 @@
+{ 
+    "username":"john.smith@example.com",
+    "password":"jsedotc123",
+    "identityDomain":"jsId002",
+    "region":"emea",
+    "outputFormat":"json",
+    "oAuth":{ 
+        "clientId":"",
+        "clientSecret":"",
+        "accessTokenServer":""
+    }
+}

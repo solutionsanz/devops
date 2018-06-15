@@ -1,0 +1,67 @@
+############# psm APICS create-service help
+###### SAMPLE PAYLOAD
+#### Required properties are indicated as "required". Replace in the actual payload with real values.
+{
+    "provisionOTD":"required",
+    "cloudStorageContainer":"",
+    "noOfGatewayLicenses":"required",
+    "cloudStoragePassword":"",
+    "cloudStorageUser":"",
+    "enableAdminConsole":"",
+    "serviceName":"required",
+    "serviceDescription":"",
+    "serviceLevel":"required",
+    "tags":[
+        {
+            "key":"required",
+            "value":"",
+            "isPlacementTag":""
+        }
+    ],
+    "meteringFrequency":"",
+    "serviceVersion":"required",
+    "edition":"required",
+    "vmUser":"required",
+    "subnet":"",
+    "region":"",
+    "availabilityDomain":"",
+    "vmPublicKeyText":"",
+    "noRollback":"",
+    "isManaged":"",
+    "managedMode":"",
+    "isMultiTenant":"",
+    "enableNotification":"",
+    "notificationEmail":"",
+    "ipNetwork":"",
+    "isActive":"",
+    "publishTo":"",
+    "isBYOL":"",
+    "serviceEntitlementId":"",
+    "assignPublicIP":"",
+    "standbyRegion":"",
+    "standbyAvailabilityDomain":"",
+    "standbyIpNetwork":"",
+    "standbyIpReservations":[],
+    "useOAuthForStorage":"",
+    "components":{
+        "WLS":{
+            "connectString":"",
+            "pdbServiceName":"",
+            "shape":"",
+            "dbServiceName":"required",
+            "adminPassword":"required",
+            "adminUserName":"required",
+            "dbaName":"required",
+            "dbaPassword":"required",
+            "managedServerCount":"",
+            "domainPartitionCount":"",
+            "ipReservations":[]
+        },
+        "OTD":{
+            "haEnabled":"",
+            "shape":"",
+            "loadBalancingPolicy":"",
+            "ipReservations":[]
+        }
+    }
+}

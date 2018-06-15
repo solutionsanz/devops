@@ -1,0 +1,31 @@
+{
+    "provisionOTD":true,
+    "cloudStorageContainer":"https:\/\/@ID_DOMAIN_NAME_GOES_HERE@.us.storage.oraclecloud.com\/v1\/Storage-@ID_DOMAIN_NAME_GOES_HERE@\/@APP_NAME_GOES_HERE@_apics_storage-container-1",
+    "noOfGatewayLicenses":"100",
+    "cloudStorageUser":"cloud.admin",
+    "cloudStoragePassword":"@APICS_PASSWORD_GOES_HERE@",
+    "serviceName":"@APP_NAME_GOES_HERE@APICS",
+    "serviceDescription":"API Platform @APP_NAME_GOES_HERE@ environment",
+    "serviceLevel":"PAAS",
+    "meteringFrequency":"MONTHLY",
+    "serviceVersion":"12cRelease212",
+    "edition":"EE",
+    "vmUser":"opc",
+    "vmPublicKeyText":"@PUBLIC_KEY_GOES_HERE@",    
+    "components":{
+        "WLS":{
+            "shape":"oc1m",
+            "dbServiceName":"@APP_NAME_GOES_HERE@APICSDB",
+            "adminPassword":"@WL_PASSWORD_GOES_HERE@",
+            "adminUserName":"weblogic",
+            "dbaName":"SYS",
+            "dbaPassword":"@DBA_PASSWORD_GOES_HERE@",
+            "managedServerCount":"2"
+        },
+        "OTD":{
+            "haEnabled":"true",
+            "shape":"oc3",
+            "loadBalancingPolicy":"ROUND_ROBIN"
+        }
+    }
+}

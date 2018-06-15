@@ -1,0 +1,21 @@
+{
+    "serviceName": "db12c-ee",
+    "version": "12.1.0.2",
+    "level": "PAAS",
+    "edition": "EE",
+    "subscriptionType": "MONTHLY",
+    "shape": "oc3",
+    "vmPublicKeyText": "ssh-rsa AAAAB3Nz...",
+    "parameters": [
+      {
+        "type": "db",
+        "usableStorage": "25",
+        "adminPassword": "Pa55_word",
+        "sid": "ORCL",
+        "backupDestination": "BOTH",
+        "cloudStorageContainer": "Storage-idDomain\/dbContainerName",
+        "cloudStorageUser": "dbaasadmin",
+        "cloudStoragePwd": "Pa55_word"
+      }
+    ]
+  }

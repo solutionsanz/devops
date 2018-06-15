@@ -1,0 +1,31 @@
+{
+    "useIdentityService":true,
+    "backupDestination":"BOTH",
+    "cloudStorageContainer":"https:\/\/@ID_DOMAIN_NAME_GOES_HERE@.us.storage.oraclecloud.com\/v1\/Storage-@ID_DOMAIN_NAME_GOES_HERE@\/@APP_NAME_GOES_HERE@_oic_storage-container-1",
+    "cloudStorageUser":"cloud.admin",
+    "cloudStoragePassword":"@OIC_PASSWORD_GOES_HERE@",
+    "cloudStorageContainerAutoGenerate":true,
+    "featureSet":"ics_pcs",
+    "serviceVersion":"1.0",
+    "confirmation":true,
+    "serviceName":"@APP_NAME_GOES_HERE@OIC",
+    "serviceDescription":"OIC Dev Environment",
+    "serviceLevel":"PAAS",
+    "meteringFrequency":"HOURLY",
+    "edition":"EE",
+    "vmPublicKeyText":"@PUBLIC_KEY_GOES_HERE@",
+    "noRollback":false,
+    "components":{
+        "WLS":{
+            "managedServerCount":"2",
+            "componentVersion": "12.2.1.2",
+            "dbaName":"SYS",
+            "dbaPassword":"@DBA_PASSWORD_GOES_HERE@",
+            "dbServiceName":"@APP_NAME_GOES_HERE@OICDB",
+            "adminUserName":"weblogic",
+            "adminPassword":"@WL_PASSWORD_GOES_HERE@",
+            "shape":"oc1m"
+        }
+    }
+}
+

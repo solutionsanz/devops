@@ -1,0 +1,101 @@
+{
+  "links": {
+    "@rel": "self",
+    "@href": "@ICS_CONNECTOR_SF_URI@"
+  },
+  "connectionproperties": {
+    "displayName": "Enterprise WSDL Location",
+    "hasAttachment": "false",
+    "hidden": "false",
+    "length": "0",
+    "propertyGroup": "CONNECTION_PROPS",
+    "propertyName": "targetWSDLURL",
+    "propertyType": "URL_OR_FILE",
+	"propertyValue": "ccapi://S2VIIA_SALESFORCE_CONN1/salesforce_enterprise_wsdl.wsdl",
+    "required": "true"
+  },
+  "securityproperties": [
+    {
+      "displayName": "Username",
+      "hasAttachment": "false",
+      "hidden": "false",
+      "length": "255",
+      "propertyGroup": "CREDENTIALS",
+      "propertyName": "username",
+      "propertyType": "STRING",
+      "propertyValue": "@ICS_CONNECTOR_SF_USERNAME@",
+      "required": "true"
+    },
+    {
+      "displayName": "Password",
+      "hasAttachment": "false",
+      "hidden": "false",
+      "length": "255",
+      "propertyGroup": "CREDENTIALS",
+      "propertyName": "password",
+      "propertyType": "PASSWORD",
+      "propertyValue": "@ICS_CONNECTOR_SF_PASSWORD@",
+      "required": "true"
+    }
+  ],
+  "adaptertype": {
+    "appTypeConnProperties": {
+      "displayName": "Enterprise WSDL Location",
+      "hasAttachment": "false",
+      "hidden": "false",
+      "length": "0",
+      "propertyGroup": "CONNECTION_PROPS",
+      "propertyName": "targetWSDLURL",
+      "propertyType": "URL_OR_FILE",
+      "required": "true"
+    },
+    "appTypeCredProperties": [
+      {
+        "displayName": "Username",
+        "hasAttachment": "false",
+        "hidden": "false",
+        "length": "255",
+        "propertyGroup": "CREDENTIALS",
+        "propertyName": "username",
+        "propertyType": "STRING",
+        "required": "true"
+      },
+      {
+        "displayName": "Password",
+        "hasAttachment": "false",
+        "hidden": "false",
+        "length": "255",
+        "propertyGroup": "CREDENTIALS",
+        "propertyName": "password",
+        "propertyType": "PASSWORD",
+        "required": "true"
+      }
+    ],
+    "appTypeLargeIconUrl": "/images/default/GenericCloud_92.png",
+    "appTypeMediumGrayIconUrl": "/images/default/GenericCloud_g_46.png",
+    "appTypeMediumIconUrl": "/images/default/GenericCloud_46.png",
+    "appTypeMediumWhiteIconUrl": "/images/default/GenericCloud_w_46.png",
+    "appTypeName": "salesforce",
+    "appTypeSmallIconUrl": "/images/default/GenericCloud_32.png",
+    "displayName": "Salesforce",
+    "features": "sdk.wsdl.regeneration",
+    "source": "PREINSTALLED",
+    "supportedSecurityPolicies": "Custom Security Policy",
+    "usage": "0",
+    "vedorInfo": {
+      "name": "Oracle Corporation",
+      "description": "https://www.oracle.com/about",
+      "contactUS": "http://www.oracle.com/us/corporate/contact/index.html",
+      "supportURL": "http://otn.oracle.com",
+      "documentationURL": "https://docs.oracle.com/cloud/latest/intcs_gs/index.html",
+      "releaseNotes": "The Oracle Cloud Adapter for Salesforce.com enables customers to easily integrate their on-premises or SaaS applications with Salesforce.com application without having to know about the specific details involved in the integration."
+    }
+  },
+  "code": "S2VIIA_SALESFORCE_CONN1",
+  "imageURL": "/images/default/GenericCloud_32.png",
+  "name": "s2viia_salesforce_conn1",
+  "percentageComplete": "100",
+  "securityPolicy": "CUSTOM",
+  "status": "CONFIGURED",
+  "supportsCache": "true"
+}

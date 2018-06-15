@@ -1,0 +1,42 @@
+{
+    "operationType":"DELETE",
+    "IntegrationCloud":{
+        "parameters":{
+            "criCSOICdb":{
+                "dbaName":"sys",
+                "dbaPassword":"@DBA_PASSWORD_GOES_HERE@"
+            },
+            "criCSOICic":{
+                "dbaName":"sys",
+                "dbaPassword":"@DBA_PASSWORD_GOES_HERE@"
+            },            
+            "serviceParameters":{
+                "dbaName":"sys",
+                "dbaPassword":"@DBA_PASSWORD_GOES_HERE@"
+            },
+            "componentParameters":{
+                "criCSOICdb":{
+                    "dbaPassword":"@DBA_PASSWORD_GOES_HERE@"
+                },
+                "criCSOICic":{
+                    "dbaPassword":"@DBA_PASSWORD_GOES_HERE@"
+                }
+            }
+        }
+    },
+    "criCSOICic":{
+        "parameters":{
+            "dbaPassword":"@DBA_PASSWORD_GOES_HERE@",
+            "serviceParameters":{
+                "dbaName":"sys",
+                "dbaPassword":"@DBA_PASSWORD_GOES_HERE@"
+            },
+            "componentParameters":{
+                "OTD":{
+                    "param1":"value1"
+                }
+            }
+        }
+    }
+    
+}

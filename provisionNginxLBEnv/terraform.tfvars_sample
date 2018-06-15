@@ -1,0 +1,22 @@
+##################################################################################################################
+####################################################### Build Instance Name ######################################
+
+prefix = "MongoDB"
+
+
+####################################################### My Envs ######################################
+################ Dev Environment #######################
+### Note: for IDCS envs, terraform opc provider requires: 
+###         - idDomain: Needs to be set to the Compute's "Service Instance ID" (Not the Storage Service ID... It might be different)
+###         - imageLocation: Refer to this blog: https://redthunder.blog/2018/02/20/teaching-how-to-use-terraform-to-manage-oracle-cloud-infrastructure-as-code/ for assistance
+
+ociUser = "OIC_USER_GOES_HERE e.g. cloud.admin"
+ociPass = "OIC_PASSWD_GOES_HERE"
+idDomain = "SERVICE_INSTANCE_ID_GOES_HERE e.g. 598312345"
+idDomainName = "IDENTITY_DOMAIN_NAME_GOES_HERE e.g. gse00012345"
+apiEndpoint = "COMPUTE_API_ENDPOINT_GOES_HERE e.g. https://api-Z56.compute.us6.oraclecloud.com/"
+imageLocation = "IMAGE_PATH_LOCAL_TO_THE_REMOTE_SERVER e.g. /Compute-598328698/cloud.admin/bitnami-mongodb-3.6.4-0-linux-ubuntu-16.04-x86_64"
+psm_setup = "psm_config/psm_setup_config.json"
+
+###################################################
+##################################################################################################################

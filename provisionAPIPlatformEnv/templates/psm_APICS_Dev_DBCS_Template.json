@@ -1,0 +1,20 @@
+{
+    "serviceName": "@APP_NAME_GOES_HERE@APICSDB",
+    "version": "12.1.0.2",
+    "level": "PAAS",
+    "edition": "EE",
+    "shape": "oc3",
+    "vmPublicKeyText": "@PUBLIC_KEY_GOES_HERE@",
+    "parameters": [
+      {
+        "type": "db",
+        "usableStorage": "25",
+        "adminPassword": "@DBA_PASSWORD_GOES_HERE@",
+        "sid": "ORCL",
+        "backupDestination": "BOTH",
+        "cloudStorageContainer": "https:\/\/@ID_DOMAIN_NAME_GOES_HERE@.us.storage.oraclecloud.com\/v1\/Storage-@ID_DOMAIN_NAME_GOES_HERE@\/@APP_NAME_GOES_HERE@_apicsDB_storage-container-1",
+        "cloudStorageUser": "cloud.admin",
+        "cloudStoragePwd": "@APICS_PASSWORD_GOES_HERE@"
+      }
+    ]
+  }

@@ -1,0 +1,250 @@
+---
+  template: 
+    templateName: Oracle-IntegrationCloud-CM-Template
+    templateVersion: 1.0.51
+    templateDescription: Integration Cloud
+
+    #----------------------------------------
+    # PARAMETERS
+    #----------------------------------------
+    parameters:
+      #----------------------------------------
+      # SERVICE
+      #----------------------------------------
+      sshPublicKey:
+        label: SSH Public Key
+        description: SSH public key
+        type: ssh
+        mandatory: true
+        sensitive: true
+      icNumberNodes:
+        label: Number Nodes
+        description: Initial number of nodes (managed servers)
+        type: Number
+        mandatory: false
+        default: 2
+        sensitive: false
+        minValue: 1
+      featureSet:
+        label: Feature Set
+        description: Enabled feature set
+        type: String
+        mandatory: true
+        default: "Integration and Process"
+        sensitive: false
+        allowedValues: [ "Integration", "Integration and Process", "Integration and Process + Integration Analytics" ]
+
+      #----------------------------------------
+      # BACKUP AND RECOVERY CONFIGURATION
+      #----------------------------------------
+      cloudStorageInstance:
+        label: Cloud Storage Account Name (TEMPORARY)
+        description: "Cloud storage account name. The name has to be in the form https|http://<storagedomain>/{version}/<schema name> or <storage service name>-<identity domain name>. E.g. Storage-ahaus (TEMPORARY)"
+        # description: "Cloud storage instance. The name has to be in the form https|http://<storagedomain>/{version}/<schema name>/<container name> or <storage service name>-<identity domain name>/<container name>. E.g:storagesvc999-usoracleaccoutrial00999/backupContainer."
+        type: String
+        mandatory: true
+        sensitive: false
+      cloudStorageUser:
+        label: Cloud Storage user Name (TEMPORARY)
+        description: Cloud storage user name (TEMPORARY)
+        type: String
+        mandatory: true
+        sensitive: false
+      cloudStoragePassword:
+        label: Cloud Storage User Password (TEMPORARY)
+        description: Cloud storage user password (TEMPORARY)
+        type: String
+        mandatory: true
+        sensitive: true
+      #----------------------------------------
+      # INSTANCE RESPONSIBILITY
+      #----------------------------------------
+      #confirmation:
+      #  label: Instance Administration Responsibility Acknowledgment
+      #  description: "Oracle is responsible for ensuring continued access to cloud infrastructure.  Customer responsibilities include administration and management of the Integration Cloud instance.  For more information, please refer to http://www.oracle.com/webfolder/technetwork/ic/instance-responsibility.pdf."
+      #  type: String
+      #  mandatory: true
+      #  default: "not confirmed"
+      #  sensitive: false
+      #  allowedValues: [ "confirmed", "not confirmed" ]
+
+    #----------------------------------------
+    # PARAMETER GROUPS
+    #----------------------------------------
+    parameterGroups:
+      - label: Service
+        parameters: [ sshPublicKey, featureSet, icNumberNodes ]
+      - label: Backup and Recovery Configuration
+        parameters: [ cloudStorageInstance, cloudStorageUser, cloudStoragePassword ]
+      # - label: Instance Responsibility
+      #   parameters: [ confirmation ]
+
+    #----------------------------------------
+    # CONDITIONS
+    #----------------------------------------
+    conditions:
+      # number of nodes
+      isOneNode:   { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 1 ] }
+      isTwoNode:   { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 2 ] }
+      isThreeNode: { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 3 ] }
+      isFourNode:  { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 4 ] }
+      isFiveNode:  { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 5 ] }
+      isSixNode:   { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 6 ] }
+      isSevenNode: { "Fn::Equals" : [ { "Fn::GetParam" : icNumberNodes }, 7 ] }
+      # confirmation
+      # isConfirmed: { "Fn::Equals" : [ { "Fn::GetParam" : confirmation }, "confirmed" ] }
+      # integration analytics
+      isIcsPcsIa:  { "Fn::Equals" : [ { "Fn::GetParam" : featureSet }, "Integration and Process + Integration Analytics" ] }
+
+    #----------------------------------------
+    # RESOURCES
+    #----------------------------------------
+    resources:
+      #----------------------------------------
+      # DATABASE BACKUP CONTAINER
+      #----------------------------------------
+      dbaasBackupContainer:
+        type: OSS.Container
+        parameters:
+          cloudStorageContainer: { "Fn::Join" : [ "/", [ { "Fn::GetParam" : cloudStorageInstance }, { "Fn::Join" : [ "", [ "database_backup_", { "Fn::GetParam" : serviceName } ] ] } ] ] }
+          cloudStorageUser: { "Fn::GetParam" : cloudStorageUser }
+          cloudStoragePassword: { "Fn::GetParam" : cloudStoragePassword }
+          createStorageContainerIfMissing: true
+        # condition: isConfirmed
+      #----------------------------------------
+      # DATABASE
+      #----------------------------------------
+      dbaas:
+        type: dbaas
+        parameters: 
+          serviceName: { "Fn::Join" : ["", [ { "Fn::GetParam" : serviceName }, "db" ] ] }
+          version: 12.1.0.2
+          level: PAAS
+          edition: "EE"
+          subscriptionType: HOURLY
+          description: DBaaS Instance
+          shape: { "Fn::If" : [ "isOneNode",   "oc1m",
+                 { "Fn::If" : [ "isTwoNode",   "oc1m",
+                 { "Fn::If" : [ "isThreeNode", "oc2m",
+                 { "Fn::If" : [ "isFourNode",  "oc2m",
+                 { "Fn::If" : [ "isFiveNode",  "oc3m",
+                 { "Fn::If" : [ "isSixNode",   "oc3m",
+                 { "Fn::If" : [ "isSevenNode", "oc4m",
+                                               "oc4m" ]}]}]}]}]}]}]}
+          vmPublicKeyText: { "Fn::GetParam" : sshPublicKey }
+          parameters:
+            -
+              type: db
+              usableStorage: { "Fn::If" : [ "isOneNode",   "125",
+                             { "Fn::If" : [ "isTwoNode",   "250",
+                             { "Fn::If" : [ "isThreeNode", "375",
+                             { "Fn::If" : [ "isFourNode",  "500",
+                             { "Fn::If" : [ "isFiveNode",  "625",
+                             { "Fn::If" : [ "isSixNode",   "750",
+                             { "Fn::If" : [ "isSevenNode", "875",
+                                                          "1000" ]}]}]}]}]}]}]}
+              adminPassword: "Welcome1#"
+              sid: ORCL
+              failoverDatabase: "no"
+              disasterRecovery: "no"
+              isRac: "no"
+              backupDestination: BOTH
+              # a storage container is created automatically for database backup, including a default name:
+              # database_backup_<stack service name>
+              cloudStorageContainer: { "Fn::Join" : [ "/", [ { "Fn::GetParam" : cloudStorageInstance }, { "Fn::Join" : [ "", [ "database_backup_", { "Fn::GetParam" : serviceName } ] ] } ] ] }
+              cloudStorageUser: { "Fn::GetParam" : cloudStorageUser }
+              cloudStoragePwd: { "Fn::GetParam" : cloudStoragePassword }
+              createStorageContainerIfMissing: true
+        # condition: isConfirmed
+        depends_on:
+          - dbaasBackupContainer
+      #----------------------------------------
+      # OIC BACKUP CONTAINER
+      #----------------------------------------
+      icBackupContainer:
+        type: OSS.Container
+        parameters:
+          cloudStorageContainer: { "Fn::Join" : [ "/", [ { "Fn::GetParam" : cloudStorageInstance }, { "Fn::Join" : [ "", [ "ic_backup_", { "Fn::GetParam" : serviceName } ] ] } ] ] }
+          cloudStorageUser: { "Fn::GetParam" : cloudStorageUser }
+          cloudStoragePassword: { "Fn::GetParam" : cloudStoragePassword }
+          createStorageContainerIfMissing: true
+        # condition: isConfirmed
+      #----------------------------------------
+      # OIC
+      #----------------------------------------
+      integrationCloud:
+        type: IntegrationCloud
+        parameters:
+          serviceName:  { "Fn::Join" : [ "", [ { "Fn::GetParam" : serviceName }, "ic" ] ] }
+          serviceLevel: PAAS
+          # TODO
+          # unclear if this is the correct access:
+          serviceDescription: { "Fn::GetParam" : description }
+          serviceVersion: "1.0"
+          edition: EE
+          featureSet: "ics_pcs"
+          vmPublicKeyText: { "Fn::GetParam" : sshPublicKey }
+          noRollback: false
+          useIdentityService: true
+          cloudStorageContainer: { "Fn::Join" : [ "/", [ { "Fn::GetParam" : cloudStorageInstance }, { "Fn::Join" : [ "", [ "ic_backup_", { "Fn::GetParam" : serviceName } ] ] } ] ] }
+          cloudStorageUser: { "Fn::GetParam" : cloudStorageUser }
+          cloudStoragePassword: { "Fn::GetParam" : cloudStoragePassword }
+          cloudStorageContainerAutoGenerate: true
+          meteringFrequency: HOURLY
+          confirmation: true
+          components:
+            WLS:
+              dbServiceName: { "Fn::GetAtt" : [ dbaas, serviceName ] }
+              dbaName: "SYS"
+              dbaPassword: "Welcome1#"
+              managedServerCount: { "Fn::GetParam" : icNumberNodes }
+              componentVersion: 12.2.1.2
+        # condition: isConfirmed
+        depends_on:
+          - dbaas
+          - icBackupContainer
+      #-----------------------------------------------
+      # OIC BACKUP CONTAINER FOR INTEGRATION ANALYTICS
+      #-----------------------------------------------
+      integrationAnalyticsBackupContainer:
+        type: OSS.Container
+        parameters:
+          cloudStorageContainer: { "Fn::Join" : [ "/", [ { "Fn::GetParam" : cloudStorageInstance }, { "Fn::Join" : [ "", [ "integration_analytics_backup_", { "Fn::GetParam" : serviceName } ] ] } ] ] }
+          cloudStorageUser: { "Fn::GetParam" : cloudStorageUser }
+          cloudStoragePassword: { "Fn::GetParam" : cloudStoragePassword }
+          createStorageContainerIfMissing: true
+        condition: isIcsPcsIa
+      #----------------------------------------
+      # OIC (INTEGRATION ANALYTICS)
+      #----------------------------------------
+      integrationAnalyticsPod:
+        type: IntegrationCloud
+        parameters:
+          serviceName:  { "Fn::Join" : [ "", [ { "Fn::GetParam" : serviceName }, "ia" ] ] }
+          serviceLevel: PAAS
+          # TODO
+          # unclear if this is the correct access:
+          serviceDescription: { "Fn::GetParam" : description }
+          serviceVersion: "1.0"
+          edition: EE
+          featureSet: "ia"
+          vmPublicKeyText: { "Fn::GetParam" : sshPublicKey }
+          noRollback: false
+          useIdentityService: true
+          cloudStorageContainer: { "Fn::Join" : [ "/", [ { "Fn::GetParam" : cloudStorageInstance }, { "Fn::Join" : [ "", [ "integration_analytics_backup_", { "Fn::GetParam" : serviceName } ] ] } ] ] }
+          cloudStorageUser: { "Fn::GetParam" : cloudStorageUser }
+          cloudStoragePassword: { "Fn::GetParam" : cloudStoragePassword }
+          cloudStorageContainerAutoGenerate: true
+          meteringFrequency: HOURLY
+          confirmation: true
+          components:
+            WLS:
+              dbServiceName: { "Fn::GetAtt" : [ dbaas, serviceName ] }
+              dbaName: "SYS"
+              dbaPassword: "Welcome1#"
+              managedServerCount: { "Fn::GetParam" : icNumberNodes }
+              componentVersion: 12.2.1.2
+        condition: isIcsPcsIa
+        depends_on:
+          - dbaas
+          - integrationAnalyticsBackupContainer
