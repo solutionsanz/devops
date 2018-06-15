@@ -4,27 +4,19 @@
 # Auto deploy OIC Integrations into new target environment.
 # This version created by Carlos Rodriguez Iturria (https://www.linkedin.com/in/citurria/)
 #######################################################################
-#################### Reading and validating passed parameters:
 
-if [ "$#" -ne 1 ]; then
-
+if [ ! -f integration.properties ]; then
     echo "**************************************** Error: "
-    echo " Illegal number of parameters."
-    echo " Parameters: [stackName]"
-    echo ' Where: env_[$stackName].properties is the name of the properties file containing the values required to deploy these integrations.'
+    echo " integration.properties file does not exist,"
+    echo " please create this file with your Integration properties and try again."
+    echo " A sample file was provided for illustratino purposes."
     echo "****************************************"
     exit 1
-    
 fi
-
-stackName=$1
-
 
 # 1. We are going to set our environmental properties, by sourcing the env-[DEV|TEST|PROD] file that you wish to use.
 
-export ICS_INTEGRATION_ENV="${stackName}"
-
-source ./env_${ICS_INTEGRATION_ENV}.properties
+source ./integration.properties
 
 # 2. Build and Configure the IAR integration archive.
 
