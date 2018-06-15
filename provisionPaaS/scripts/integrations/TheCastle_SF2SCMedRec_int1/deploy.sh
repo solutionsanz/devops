@@ -30,7 +30,7 @@ source ./integration.properties
 pathIntegration="integration"
 
 ###########################
-# If upserting, we need to delete the integration and connectors first, but it is dangerous, do it only if you know what you're doing:
+# If upserting, first we need to delete the integration and connectors first, but it is dangerous, do it only if you know what you're doing:
 
 # Deleting integration:
 #curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X DELETE ${ICS_INTEGRATION_DELETE_IMPORT_URI} -v
@@ -42,8 +42,7 @@ pathIntegration="integration"
 #curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X DELETE ${ICS_REST_APIs4Notifications_CONNECTOR_DELETE} -v
 ############################
 
-
-curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X PUT -F "file=@${pathIntegration}/${ICS_INTEGRATION_IAR_FILENAME};type=multipart/form-data" ${ICS_INTEGRATION_POST_IMPORT_URI} -v
+curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X POST -F "file=@${pathIntegration}/${ICS_INTEGRATION_IAR_FILENAME};type=multipart/form-data" ${ICS_INTEGRATION_POST_IMPORT_URI} -v
 
 
 # Sleep 5 seconds to give time to complete before configuring the adapters.
