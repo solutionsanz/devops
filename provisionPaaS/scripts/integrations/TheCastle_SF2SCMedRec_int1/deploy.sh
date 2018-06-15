@@ -29,8 +29,18 @@ source ./integration.properties
 # 3. Import the ICS Integration archive (IAR)
 pathIntegration="integration"
 
-# If upserting, we need to delete it first:
+###########################
+# If upserting, we need to delete the integration and connectors first, but it is dangerous, do it only if you know what you're doing:
+
 #curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X DELETE ${ICS_INTEGRATION_DELETE_IMPORT_URI} -v
+
+# Deleting each of the associated connectors:
+#curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X DELETE ${ICS_SC_CONNECTOR_DELETE} -v
+#curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X DELETE ${ICS_SF_CONNECTOR_DELETE} -v
+#curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X DELETE ${ICS_REST_ANKIMEDREC_CONNECTOR_DELETE} -v
+#curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X DELETE ${ICS_REST_APIs4Notifications_CONNECTOR_DELETE} -v
+############################
+
 
 curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Accept: application/json" -X PUT -F "file=@${pathIntegration}/${ICS_INTEGRATION_IAR_FILENAME};type=multipart/form-data" ${ICS_INTEGRATION_POST_IMPORT_URI} -v
 
