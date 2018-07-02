@@ -60,10 +60,10 @@ curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "X-HTTP-Method-Override:PATCH" -H "Co
 sleep 5
 
 #	4.2 Salesforce Connector
-
 # Configure Salesforce Connector:
+
 ## Uploads Enterprise WSDL:
-curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Content-Type:application/json" -X POST -F @${pathConnectors}/temp_${ICS_CONNECTOR_SF_WSDL_NAME} ${ICS_CONNECTOR_SF_WSDL_UPLOAD_URI} -v
+curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "Content-Type:multipart/form-data" -X POST -F ${ICS_CONNECTOR_SF_WSDL_NAME}=@${pathConnectors}/${ICS_CONNECTOR_SF_WSDL_NAME} ${ICS_CONNECTOR_SF_WSDL_UPLOAD_URI} -v
 curl -u "${ICS_USERNAME}:${ICS_PASSWD}" -H "X-HTTP-Method-Override:PATCH"  -H "Content-Type:application/json" -X POST -d @${pathConnectors}/temp_${ICS_CONNECTOR_SF_CONFIG_NAME} ${ICS_CONNECTOR_SF_URI} -v
 
 
