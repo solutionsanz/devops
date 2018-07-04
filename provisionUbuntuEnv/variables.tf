@@ -27,9 +27,6 @@
   variable "imageLocation" {
       description = "Image Location in OCI-Classic Compute"
   }
-  variable "psm_setup" {
-    description = "PSM CLI Setup config file"
-  }
 
 ### Keys ###
   variable ssh_user {
