@@ -28,6 +28,21 @@
       name                = "${var.prefix}_my-ip-external"
       permanent           = true
     }
+
+    ### Network :: Custom Applications ###
+    resource "opc_compute_security_application" "k8s-ing-30001" {
+      name     = "k8s-ing-30001"
+      protocol = "tcp"
+      dport    = "30001"
+    }
+
+    resource "opc_compute_security_application" "k8s-ing-30002" {
+      name     = "k8s-ing-30002"
+      protocol = "tcp"
+      dport    = "30002"
+    }    
+
+
     ### Network :: Shared Network :: Security Lists ###
     # A security list is a group of Oracle Compute Cloud Service instances that you can specify as the source or destination in one or more security rules. The instances in a
     # security list can communicate fully, on all ports, with other instances in the same security list using their private IP addresses.
@@ -59,6 +74,42 @@
       action           = "permit"
       application      = "/oracle/public/ssh"
     }
+
+    resource "opc_compute_sec_rule" "my-sec-rule-2" {
+      depends_on       = ["opc_compute_security_list.my-sec-list-1"]
+      name             = "${var.prefix}_my-sec-rule-1"
+      source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
+      destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
+      action           = "permit"
+      application      = "/oracle/public/http"
+    }
+
+    resource "opc_compute_sec_rule" "my-sec-rule-3" {
+      depends_on       = ["opc_compute_security_list.my-sec-list-1"]
+      name             = "${var.prefix}_my-sec-rule-1"
+      source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
+      destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
+      action           = "permit"
+      application      = "/oracle/public/https"
+    }    
+
+    resource "opc_compute_sec_rule" "my-sec-rule-4" {
+      depends_on       = ["opc_compute_security_list.my-sec-list-1", "opc_compute_security_application.k8s-ing-30001"]
+      name             = "${var.prefix}_my-sec-rule-1"
+      source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
+      destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
+      action           = "permit"
+      application      = "k8s-ing-30001"
+    }
+
+    resource "opc_compute_sec_rule" "my-sec-rule-5" {
+      depends_on       = ["opc_compute_security_list.my-sec-list-1", "opc_compute_security_application.k8s-ing-30002"]
+      name             = "${var.prefix}_my-sec-rule-1"
+      source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
+      destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
+      action           = "permit"
+      application      = "k8s-ing-30002"
+    }    
 
 ### Storage ###
   ### Storage :: Master ###
