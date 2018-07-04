@@ -77,7 +77,7 @@
 
     resource "opc_compute_sec_rule" "my-sec-rule-2" {
       depends_on       = ["opc_compute_security_list.my-sec-list-1"]
-      name             = "${var.prefix}_my-sec-rule-1"
+      name             = "${var.prefix}_my-sec-rule-2"
       source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
       destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
       action           = "permit"
@@ -86,7 +86,7 @@
 
     resource "opc_compute_sec_rule" "my-sec-rule-3" {
       depends_on       = ["opc_compute_security_list.my-sec-list-1"]
-      name             = "${var.prefix}_my-sec-rule-1"
+      name             = "${var.prefix}_my-sec-rule-3"
       source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
       destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
       action           = "permit"
@@ -95,7 +95,7 @@
 
     resource "opc_compute_sec_rule" "my-sec-rule-4" {
       depends_on       = ["opc_compute_security_list.my-sec-list-1", "opc_compute_security_application.k8s-ing-30001"]
-      name             = "${var.prefix}_my-sec-rule-1"
+      name             = "${var.prefix}_my-sec-rule-4"
       source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
       destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
       action           = "permit"
@@ -104,7 +104,7 @@
 
     resource "opc_compute_sec_rule" "my-sec-rule-5" {
       depends_on       = ["opc_compute_security_list.my-sec-list-1", "opc_compute_security_application.k8s-ing-30002"]
-      name             = "${var.prefix}_my-sec-rule-1"
+      name             = "${var.prefix}_my-sec-rule-5"
       source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
       destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
       action           = "permit"
