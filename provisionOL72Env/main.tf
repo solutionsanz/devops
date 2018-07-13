@@ -155,7 +155,7 @@
           timeout = "10m"
           type = "ssh"
           host = "${opc_compute_ip_reservation.my-reservation-ip-external.ip}"
-          user = "ubuntu"
+          user = "opc"
           private_key = "${file(var.ssh_private_key)}"
         }
       source      = "scripts/"
@@ -166,7 +166,7 @@
           timeout = "10m"
           type = "ssh"
           host = "${opc_compute_ip_reservation.my-reservation-ip-external.ip}"
-          user = "ubuntu"
+          user = "opc"
           private_key = "${file(var.ssh_private_key)}"
         }
         inline = [
