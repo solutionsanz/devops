@@ -40,7 +40,19 @@
       name     = "${var.prefix}_k8s-ing-30002"
       protocol = "tcp"
       dport    = "30002"
-    }    
+    }
+
+    resource "opc_compute_security_application" "apics-http-8011" {
+      name     = "${var.prefix}_apics-http-8011"
+      protocol = "tcp"
+      dport    = "8011"
+    }   
+
+    resource "opc_compute_security_application" "apics-https-9022" {
+      name     = "${var.prefix}_apics-https-9022"
+      protocol = "tcp"
+      dport    = "9022"
+    }          
 
 
     ### Network :: Shared Network :: Security Lists ###
@@ -110,6 +122,24 @@
       action           = "permit"
       application      = "${var.prefix}_k8s-ing-30002"
     }    
+
+    resource "opc_compute_sec_rule" "my-sec-rule-6" {
+      depends_on       = ["opc_compute_security_list.my-sec-list-1", "opc_compute_security_application.apics-http-8011"]
+      name             = "${var.prefix}_my-sec-rule-6"
+      source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
+      destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
+      action           = "permit"
+      application      = "${var.prefix}_apics-http-8011"
+    }     
+
+    resource "opc_compute_sec_rule" "my-sec-rule-7" {
+      depends_on       = ["opc_compute_security_list.my-sec-list-1", "opc_compute_security_application.apics-https-9022"]
+      name             = "${var.prefix}_my-sec-rule-7"
+      source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
+      destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
+      action           = "permit"
+      application      = "${var.prefix}_apics-https-9022"
+    }           
 
 ### Storage ###
   ### Storage :: Master ###

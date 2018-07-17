@@ -2,37 +2,25 @@
     echo "######################### Initiating Bootstrap ############################"
     
     echo "##########################################################################"
-    echo "######################### Updating packages ##############################"
+    echo "######################### Adding swapfile ##############################"
 
-#    sudo apt-get update
+    #See: https://www.centos.org/docs/5/html/5.2/Deployment_Guide/s2-swap-creating-file.html
 
-    echo "##########################################################################"    
-    echo "########################### Installing Git ###############################"
+    sudo free
 
-#    sudo apt-get install git -y
+    sudo dd if=/dev/zero of=/swapfile bs=1024 count=716800
 
-    echo "##########################################################################"    
-    echo "###################### Installed Python version ##########################"
+    sudo mkswap /swapfile
 
-#    python3 -V
+    sudo swapon /swapfile
 
-    echo "##########################################################################"    
-    echo "###################### Installing Python Pip #############################"
-#    sudo apt-get install python3-pip -y
-   
-    echo "##########################################################################"
-    echo "################# Installing NodeJS 9 on an Ubuntu Machine ###############"
+    #Edit:  /etc/fstab
+    #    Add:
+    #        /swapfile swap swap defaults 0 0
 
-#    sudo curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+    sudo echo "/swapfile swap swap defaults 0 0" >> /etc/fstab
 
-#    sudo apt-get install nodejs -y
-
-    echo "###########################################################################"
-    echo "############# Installing and configuring Docker for Dev ###################"
-
-#    sudo apt-get install docker.io -y
-#    sudo usermod -G docker ubuntu    
-#    docker --version
+    sudo free
 
 
     echo "###########################################################################"
