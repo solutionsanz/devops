@@ -41,3 +41,7 @@
     description = "File location of the ssh public key"
     default     = "./ssh/myPublic_sshKey.pub"
   }
+
+    variable administratorPassword {
+    description = "Windows Administrators password"
+  }

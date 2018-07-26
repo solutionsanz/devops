@@ -12,6 +12,22 @@
     identity_domain     = "${var.idDomain}"
     endpoint            = "${var.apiEndpoint}"
   }
+
+  data "template_file" "userdata" {
+    vars {
+      admin_password = "${var.administratorPassword}"
+    }
+
+    template = <<JSON
+  {
+    "userdata": {
+        "enable_rdp": true,
+        "administrator_password": "$${admin_password}"
+    }
+  }
+  JSON
+  }
+
   resource "opc_compute_ssh_key" "my-public-key" {
     name                = "${var.prefix}_my-public-key"
     key                 = "${file(var.ssh_public_key)}"
@@ -100,6 +116,7 @@
     storage_type        = "/oracle/public/storage/latency"
     bootable            = true
     image_list          = "${var.imageLocation}"
+    instance_attributes = "${data.template_file.userdata.rendered}"
     image_list_entry    = 1
   }
 
