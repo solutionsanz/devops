@@ -94,7 +94,7 @@
 ### Storage ###
   ### Storage :: Master ###
   resource "opc_compute_storage_volume" "my-volume-1" {
-    size                = "20"
+    size                = "40"
     description         = "${var.prefix}_my-volume-1: bootable storage volume"
     name                = "${var.prefix}_my-volume-1-boot"
     storage_type        = "/oracle/public/storage/latency"
