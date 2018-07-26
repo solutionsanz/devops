@@ -116,7 +116,6 @@
     storage_type        = "/oracle/public/storage/latency"
     bootable            = true
     image_list          = "${var.imageLocation}"
-    instance_attributes = "${data.template_file.userdata.rendered}"
     image_list_entry    = 1
   }
 
@@ -141,6 +140,7 @@
     }
     ssh_keys            = ["${opc_compute_ssh_key.my-public-key.name}"]
     boot_order          = [ 1 ]
+    instance_attributes = "${data.template_file.userdata.rendered}"
   }
 
   ### Output ###
