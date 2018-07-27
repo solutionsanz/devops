@@ -34,7 +34,7 @@ variable "apiEndpoint" {
   description = "Api Endpoint (Compute) - OCI-Classic Compute tenancy REST Endpoint URL"
 }
 
-  variable "a05_containerRepoUser" {
+  variable "containerRepoUser" {
       description = "Username - Oracle Container Registry"
   }
   variable "a06_containerRepoPass" {
@@ -131,7 +131,7 @@ variable "apiEndpoint" {
 ### Keys ###
 variable s00_sshUser {
   description = "Username - Account for ssh access to the image"
-  default     = "opc"
+  default     = "ubuntu"
   #user input: false
   #tenancy: idcs
 }

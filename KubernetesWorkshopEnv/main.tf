@@ -145,7 +145,7 @@ resource "null_resource" "nr-oci01-mgt" {
     inline = [
           "chmod +x /tmp/mgt-script.sh",
           "chmod +x /tmp/mgt/kubernetes-env.sh",
-          "sudo /tmp/mgt-script.sh ${var.a05_containerRepoUser} ${var.a06_containerRepoPass} ${var.e00_DashMonMet} ${var.e01_Fn} ${var.e03_MicroSvc} ${var.e02_Ingress} ${var.e04_SvcMesh}",
+          "sudo /tmp/mgt-script.sh ${var.containerRepoUser} ${var.a06_containerRepoPass} ${var.e00_DashMonMet} ${var.e01_Fn} ${var.e03_MicroSvc} ${var.e02_Ingress} ${var.e04_SvcMesh}",
     ]
   }
 }
