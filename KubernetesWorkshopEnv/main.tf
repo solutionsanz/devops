@@ -128,7 +128,7 @@ resource "null_resource" "nr-oci01-mgt" {
       timeout     = "30m"
       type        = "ssh"
       host        = "${opc_compute_ip_reservation.ocir-01-mgt.ip}"
-      user        = "opc"
+      user        = "ubuntu"
       private_key = "${file(var.s01_sshPrivateKey)}"
     }
     source      = "script/"
@@ -139,7 +139,7 @@ resource "null_resource" "nr-oci01-mgt" {
       timeout     = "60m"
       type        = "ssh"
       host        = "${opc_compute_ip_reservation.ocir-01-mgt.ip}"
-      user        = "opc"
+      user        = "ubuntu"
       private_key = "${file(var.s01_sshPrivateKey)}"
     }
     inline = [
