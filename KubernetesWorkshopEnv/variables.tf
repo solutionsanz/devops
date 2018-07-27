@@ -8,30 +8,18 @@
 variable "a00_idIdcs" {
   description = "Cloud Platform Tenancy Mode: Cloud Account with IDCS (=true) or Traditional (=false)"
   default     = "true"
-  #user input: false
-  #tenancy: idcs
 }
 
-variable "a01_ociUser" {
+variable "ociUser" {
   description = "Username (Compute) - OCI-Classic user account with Compute_Operations rights"
-  default     = "lisa.jones"
-  #user input: true
-  #tenancy: idcs
 }
 
-variable "a02_ociPass" {
+variable "ociPass" {
   description = "Password (Compute) - OCI-Classic user account with Compute_Operations rights"
-  default     = "mushy@5BoXeR"
-  #user input: true
-  #tenancy: idcs
 }
 
-variable "a03_idDomain" {
+variable "idDomain" {
   description = "Identity Domain (Compute) - Compute Service Instance ID (IDCS)"
-  default     = "590582632"
-  #user input: true
-  #tenancy: idcs
-  #location - idcs: compute classic | service details | additional information | service instance id
 }
 
 #variable "a031_idIdcsTenant" {
@@ -42,21 +30,15 @@ variable "a03_idDomain" {
 #  #location: compute classic | service details | additional information | identity service id
 #}
 
-variable "a04_apiEndpoint" {
+variable "apiEndpoint" {
   description = "Api Endpoint (Compute) - OCI-Classic Compute tenancy REST Endpoint URL"
-  default     = "https://api-Z56.compute.us6.oraclecloud.com/"
-  #user input: true
-  #tenancy: idcs
-  #location: compute classic | service details | additional information | rest endpoint
 }
 
   variable "a05_containerRepoUser" {
       description = "Username - Oracle Container Registry"
-      default     = "cameron@senese.id.au"
   }
   variable "a06_containerRepoPass" {
       description = "Password - Oracle Container Registry"
-      default     = "Passw0rd321"
   }
 
 #variable "a06_stgUser" {
@@ -127,11 +109,11 @@ variable "a04_apiEndpoint" {
 
   variable "e00_DashMonMet" {
       description = "Enhanced Dashboard, Monitoring, and Metrics (Include K8s dashboard v1.8.1, Grafana, Heapster, & InfluxDB)"
-      default     = "false"
+      default     = "true"
   }
   variable "e01_Fn" {
       description = "Functions as a Service (Include Fn FaaS)"
-      default     = "false"
+      default     = "true"
   }
   variable "e02_Ingress" {
       description = "Kubernetes Ingress (Include Traefik Ingress and sample applications)"
@@ -143,7 +125,7 @@ variable "a04_apiEndpoint" {
   }
   variable "e04_SvcMesh" {
       description = "Service Mesh (Include Istio & BookInfo application)"
-      default     = "false"
+      default     = "true"
   }
 
 ### Keys ###
@@ -156,14 +138,14 @@ variable s00_sshUser {
 
 variable s01_sshPrivateKey {
   description = "File location of the ssh private key"
-  default     = "./ssh/id_rsa"
+  default     = "./ssh/myPrivate_sshKey"
   #user input: false
   #tenancy: idcs
 }
 
 variable s02_sshPublicKey {
   description = "File location of the ssh public key"
-  default     = "./ssh/id_rsa.pub"
+  default     = "./ssh/myPublic_sshKey.pub"
   #user input: false
   #tenancy: idcs
 }

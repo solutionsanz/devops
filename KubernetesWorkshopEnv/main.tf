@@ -6,10 +6,10 @@
 
 ### Environment ###
 provider "opc" {
-  user            = "${var.a01_ociUser}"
-  password        = "${var.a02_ociPass}"
-  identity_domain = "${var.a03_idDomain}"
-  endpoint        = "${var.a04_apiEndpoint}"
+  user            = "${var.ociUser}"
+  password        = "${var.ociPass}"
+  identity_domain = "${var.idDomain}"
+  endpoint        = "${var.apiEndpoint}"
 }
 
 resource "opc_compute_ssh_key" "ocsk-pubkey-01" {
