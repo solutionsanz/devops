@@ -29,7 +29,7 @@
   }
 
   resource "opc_compute_ssh_key" "my-public-key" {
-    name                = "${terraform.workspace}_${var.prefix}_my-public-key"
+    name                = "${terraform.workspace}-${var.prefix}_my-public-key"
     key                 = "${file(var.ssh_public_key)}"
     enabled             = true
   }
@@ -41,7 +41,7 @@
     ### Network :: Shared Network :: IP Reservation ###
     resource "opc_compute_ip_reservation" "my-reservation-ip-external" {
       parent_pool         = "/oracle/public/ippool"
-      name                = "${terraform.workspace}_${var.prefix}_my-ip-external"
+      name                = "${terraform.workspace}-${var.prefix}_my-ip-external"
       permanent           = true
     }
 
@@ -53,7 +53,7 @@
     # security list can communicate fully, on all ports, with other instances in the same security list using their private IP addresses.
     ###
     resource "opc_compute_security_list" "my-sec-list-1" {
-      name                 = "${terraform.workspace}_${var.prefix}_my-sec-list-1"
+      name                 = "${terraform.workspace}-${var.prefix}_my-sec-list-1"
       policy               = "deny"
       outbound_cidr_policy = "permit"
     }
@@ -63,7 +63,7 @@
     # You can use a security IP list as the source or the destination in security rules to control network access to or from Classic instances.
     ###	
     resource "opc_compute_security_ip_list" "my-sec-ip-list-1" {
-      name        = "${terraform.workspace}_${var.prefix}_my-sec-ip-list-1-inet"
+      name        = "${terraform.workspace}-${var.prefix}_my-sec-ip-list-1-inet"
       ip_entries = [ "0.0.0.0/0" ]
     }
         
@@ -73,7 +73,7 @@
     ###
     resource "opc_compute_sec_rule" "my-sec-rule-1" {
       depends_on       = ["opc_compute_security_list.my-sec-list-1"]
-      name             = "${terraform.workspace}_${var.prefix}_my-sec-rule-1"
+      name             = "${terraform.workspace}-${var.prefix}_my-sec-rule-1"
       source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
       destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
       action           = "permit"
@@ -82,7 +82,7 @@
 
     resource "opc_compute_sec_rule" "my-sec-rule-2" {
       depends_on       = ["opc_compute_security_list.my-sec-list-1"]
-      name             = "${terraform.workspace}_${var.prefix}_my-sec-rule-2"
+      name             = "${terraform.workspace}-${var.prefix}_my-sec-rule-2"
       source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
       destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
       action           = "permit"
@@ -91,7 +91,7 @@
 
     resource "opc_compute_sec_rule" "my-sec-rule-3" {
       depends_on       = ["opc_compute_security_list.my-sec-list-1"]
-      name             = "${terraform.workspace}_${var.prefix}_my-sec-rule-3"
+      name             = "${terraform.workspace}-${var.prefix}_my-sec-rule-3"
       source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
       destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
       action           = "permit"
@@ -100,7 +100,7 @@
 
     resource "opc_compute_sec_rule" "my-sec-rule-4" {
       depends_on       = ["opc_compute_security_list.my-sec-list-1"]
-      name             = "${terraform.workspace}_${var.prefix}_my-sec-rule-4"
+      name             = "${terraform.workspace}-${var.prefix}_my-sec-rule-4"
       source_list      = "seciplist:${opc_compute_security_ip_list.my-sec-ip-list-1.name}"
       destination_list = "seclist:${opc_compute_security_list.my-sec-list-1.name}"
       action           = "permit"
@@ -111,8 +111,8 @@
   ### Storage :: Master ###
   resource "opc_compute_storage_volume" "my-volume-1" {
     size                = "40"
-    description         = "${terraform.workspace}_${var.prefix}_my-volume-1: bootable storage volume"
-    name                = "${terraform.workspace}_${var.prefix}_my-volume-1-boot"
+    description         = "${terraform.workspace}-${var.prefix}_my-volume-1: bootable storage volume"
+    name                = "${terraform.workspace}-${var.prefix}_my-volume-1-boot"
     storage_type        = "/oracle/public/storage/latency"
     bootable            = true
     image_list          = "${var.imageLocation}"
@@ -122,10 +122,10 @@
 ### Compute ###
   ### Compute :: Master ###
   resource "opc_compute_instance" "my-vm-instance-1" {
-    name                = "${terraform.workspace}_${var.prefix}_my-vm-instance-1"
-    label               = "${terraform.workspace}_${var.prefix}_my-vm-instance-1"
+    name                = "${terraform.workspace}-${var.prefix}_my-vm-instance-1"
+    label               = "${terraform.workspace}-${var.prefix}_my-vm-instance-1"
     shape               = "oc4"
-    hostname            = "${terraform.workspace}_${var.prefix}-my-vm-instance-1"
+    hostname            = "${terraform.workspace}-${var.prefix}-my-vm-instance-1"
     reverse_dns         = true
     storage {
       index             = 1
@@ -136,7 +136,7 @@
       shared_network    = true
       sec_lists         = ["${opc_compute_security_list.my-sec-list-1.name}"]
       nat               = ["${opc_compute_ip_reservation.my-reservation-ip-external.name}"]
-      dns               = ["${terraform.workspace}_${var.prefix}-my-vm-instance-1"]
+      dns               = ["${terraform.workspace}-${var.prefix}-my-vm-instance-1"]
     }
     ssh_keys            = ["${opc_compute_ssh_key.my-public-key.name}"]
     boot_order          = [ 1 ]
