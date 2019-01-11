@@ -1,0 +1,65 @@
+# identity and access parameters
+
+tenancy_ocid = ""
+
+user_ocid = ""
+
+compartment_ocid = ""
+
+api_fingerprint = ""
+
+api_private_key_path=""
+
+ssh_private_key_path=""
+
+ssh_public_key_path=""
+
+region = "us-ashburn-1"
+
+# networking
+
+label_prefix = "dev"
+
+vcn_dns_name = "oci"
+
+vcn_cidr = "10.0.0.0/16"
+
+vcn_name = "base vcn"
+
+# new mask for the subnet within the virtual network. use as newbits parameter for cidrsubnet function
+newbits = 8
+
+# zero-based index of the subnet when the network is masked with the newbit
+subnets = {
+  "bastion_ad1"     = "12"
+  "bastion_ad2"     = "22"
+  "bastion_ad3"     = "32"
+}
+
+# compute
+
+bastion_shape = "VM.Standard2.2"
+
+bastion_timezone = "Australia/Sydney"
+
+update_bastion = "false"
+
+# ADs where to provision bastion instances
+
+availability_domains = {
+  "bastion_ad1"     = "true"
+  "bastion_ad2"     = "false"
+  "bastion_ad3"     = "false"
+}
+
+# nat
+
+create_nat_gateway = "false"
+
+nat_gateway_name = "nat"
+
+# service gateway
+
+create_service_gateway = "false"
+
+service_gateway_name = "sg"

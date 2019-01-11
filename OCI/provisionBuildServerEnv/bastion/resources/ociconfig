@@ -1,0 +1,6 @@
+[DEFAULT]
+user=${user_ocid}
+fingerprint=${api_fingerprint}
+key_file=/root/.ssh/oci_rsa.pem
+tenancy=${tenancy_ocid}
+region=${region}
