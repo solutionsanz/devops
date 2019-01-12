@@ -17,16 +17,16 @@
 | vcn_name                              | VCN's name in the OCI Console                 |                           |  ocivcn              |
 | newbits                               | The difference between the VCN's netmask and the desired subnets mask. At the moment, it is the same value for every subnets. In future, this will be improved so that individual subnets can have their own newbits value. This translates into the newbits parameter in the cidrsubnet Terraform function. [In-depth explanation][cidrsubnet]. Related [networks, subnets and cidr][networks] documentation.                                              |               |   8        |
 | subnets                               | Defines the boundaries of the subnets. This translates into the netnum parameter in the cidrsubnet Terraform function. [In-depth explanation][cidrsubnet]. Related [networks, subnets and cidr][networks] documentation.                                            | See [terraform.tfvars.example][terraform example]                |    See [terraform.tfvars.example][terraform example]        |
-| imageocids                            | The ocids of the images to use for the bastion instances. Tested with Oracle Linux 7.x. Should work with Oracle Linux 6.x and CentOS 6.x and 7.x too       |               |  See [terraform.tfvars.example][terraform example]              |
+| imageocids                            | The ocids of the images to use for the compute instances. Tested with Oracle Linux 7.x. Should work with Oracle Linux 6.x and CentOS 6.x and 7.x too       |               |  See [terraform.tfvars.example][terraform example]              |
 | label_prefix                          | A prefix that's prepended to created resources  |        |  dev             |
 
-## Bastion Options
+## Compute Options
 | Option                                | Description                                   | Values                    | Default               | 
 | -----------------------------------   | -------------------------------------------   | ------------              | -------------------   |
-| bastion_shape                         | The shape of the bastion instance that will be provisioned.  |               | VM.Standard2.2          |
-| availability_domains                                    | Where to provision bastion instances and other resources.  |    | See [terraform.tfvars.example][terraform example]    |
-| bastion_timezone                      | Which timezone to configure on the bastions    |               | Australia/Sydney          | 
-| update_bastion                        | Whether to update the bastion instances        |  true/false   | false          | 
+| compute_shape                         | The shape of the compute instance that will be provisioned.  |               | VM.Standard2.2          |
+| availability_domains                                    | Where to provision compute instances and other resources.  |    | See [terraform.tfvars.example][terraform example]    |
+| compute_timezone                      | Which timezone to configure on the computes    |               | Australia/Sydney          | 
+| update_compute                        | Whether to update the compute instances        |  true/false   | false          | 
 
 ## NAT Gateway Options
 | Option                                | Description                                   | Values                    | Default               | 

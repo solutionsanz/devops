@@ -23,8 +23,8 @@ variable "availability_domains" {
   type        = "map"
 }
 
-variable bastion_shape {}
+variable compute_shape {}
 
-variable "bastion_subnet_ids" {
+variable "compute_subnet_ids" {
   type        = "map"
 }

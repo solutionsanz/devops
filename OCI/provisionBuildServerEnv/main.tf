@@ -1,5 +1,10 @@
+locals {
+  imageocid = "${var.region}_${var.os}"
+}
+
+
 module "vcn" {
-  source               = "./vcn"
+  source               = "./module/vcn"
   compartment_ocid     = "${var.compartment_ocid}"
   tenancy_ocid         = "${var.tenancy_ocid}"
   vcn_dns_name         = "${var.vcn_dns_name}"
@@ -15,8 +20,9 @@ module "vcn" {
   service_gateway_name = "${var.service_gateway_name}"
 }
 
-module "bastion" {
-  source               = "./bastion"
+
+module "compute" {
+  source               = "./module/compute"
   tenancy_ocid         = "${var.tenancy_ocid}"
   user_ocid            = "${var.user_ocid}"
   api_fingerprint      = "${var.api_fingerprint}"
@@ -27,9 +33,9 @@ module "bastion" {
   api_private_key_path = "${var.api_private_key_path}"
   ssh_public_key_path  = "${var.ssh_public_key_path}"
   ssh_private_key_path = "${var.ssh_private_key_path}"
-  image_ocid           = "${var.imageocids[var.region]}"
+  image_ocid           = "${var.imageocids[local.imageocid]}"
   availability_domains = "${var.availability_domains}"
   label_prefix         = "${var.label_prefix}"
-  bastion_shape        = "${var.bastion_shape}"
-  bastion_subnet_ids   = "${module.vcn.bastion_subnet_ids}"
+  compute_shape        = "${var.compute_shape}"
+  compute_subnet_ids   = "${module.vcn.compute_subnet_ids}"
 }

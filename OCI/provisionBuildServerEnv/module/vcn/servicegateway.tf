@@ -1,4 +1,5 @@
-resource "oci_core_service_gateway" "service_gateway" {
+resource "oci_core_service_gateway" "service_gateway" { 
+  depends_on = ["oci_core_nat_gateway.nat_gateway"]
   compartment_id = "${var.compartment_ocid}"
 
   services {
@@ -13,6 +14,7 @@ resource "oci_core_service_gateway" "service_gateway" {
 }
 
 resource "oci_core_route_table" "service_gateway_route" {
+  depends_on = ["oci_core_route_table.nat_route"]
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${oci_core_vcn.vcn.id}"
   display_name   = "${var.label_prefix}-service_gateway_route"

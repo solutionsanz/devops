@@ -155,35 +155,35 @@ imageocids = {
 }
 ```
 
-> N.B. In a future release of this project, we will add ability to use Ubuntu for the bastion host.
+> N.B. In a future release of this project, we will add ability to use Ubuntu for the compute host.
 
 ### oci-cli
 
-oci-cli is preconfigured and upgraded for the opc user on the bastion instances. To use, enable 1 of the bastion instances in terraform.tfvars in the 'availability_domains' variable e.g.
+oci-cli is preconfigured and upgraded for the opc user on the compute instances. To use, enable 1 of the compute instances in terraform.tfvars in the 'availability_domains' variable e.g.
 
 ```
 availability_domains = {
-    "bastion_ad1"     = "true"
+    "compute_ad1"     = "true"
 }
 ```
 
-You can do this any time i.e. either at the beginning or after the cluster has been created. After the instance is provisioned, terraform will output the ip address of the bastion instance(s):
+You can do this any time i.e. either at the beginning or after the cluster has been created. After the instance is provisioned, terraform will output the ip address of the compute instance(s):
 
 ```
-ssh_to_bastion = [
+ssh_to_compute = [
     AD1: ssh -i /home/oracle/test/oci_rsa.pem opc@XXX.XXX.XXX.XXX,
     AD2: ssh -i /home/oracle/test/oci_rsa.pem opc@,
     AD3: ssh -i /home/oracle/test/oci_rsa.pem opc@
 ]
 ```
 
-Copy the ssh command to the bastion instance to login and verify:
+Copy the ssh command to the compute instance to login and verify:
 
 ```
 $ oci network vcn list --compartment-id <compartment-ocid>
 ```
 
-You can turn off the bastion instance(s) anytime by setting the above value to false and run terraform apply again.
+You can turn off the compute instance(s) anytime by setting the above value to false and run terraform apply again.
 
 ### OCI Networking
 The private subnets are programmable and can be controlled using the vcn_cidr, newbits and subnets variables. This can help you control the size and number of subnets that can be created within the VCNs e.g.
@@ -194,9 +194,9 @@ vcn_cidr = "10.0.0.0/16"
 newbits = "8"
 
 subnets = {
-    "bastion_ad1"     = "11"        
-    "bastion_ad2"     = "21"        
-    "bastion_ad3"     = "31"        
+    "compute_ad1"     = "11"        
+    "compute_ad2"     = "21"        
+    "compute_ad3"     = "31"        
 }
 ```
 
@@ -210,4 +210,4 @@ $ terraform destroy
 
 ## Known Issues
 
-- The imageocids for the bastion instances have been hardcoded to avoid an extra lookup. If during a terraform run, the image cannot be found, check the available [image ocids][image ocids] and update the values accordingly in terraform.tfvars. Alternatively, you may supply your own image ocids. At the moment, all scripts have been tested with Oracle Linux only, although they should work for CentOS too.
+- The imageocids for the compute instances have been hardcoded to avoid an extra lookup. If during a terraform run, the image cannot be found, check the available [image ocids][image ocids] and update the values accordingly in terraform.tfvars. Alternatively, you may supply your own image ocids. At the moment, all scripts have been tested with Oracle Linux only, although they should work for CentOS too.

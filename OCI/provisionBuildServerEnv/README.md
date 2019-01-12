@@ -13,7 +13,7 @@
 
 ## About
 
-This [Terraform][terraform] module provisions a VCN, Internet Gateway, subnets and security lists for bastion hosts and optionally a NAT gateway. It is meant to be a reusable module that other projects can build upon or to quickly set up an environment where you can then manually add other services.
+This [Terraform][terraform] module provisions a VCN, Internet Gateway, subnets and security lists for compute hosts and optionally a NAT gateway. It is meant to be a reusable module that other projects can build upon or to quickly set up an environment where you can then manually add other services.
 
 The name **ociatlas** is derived from [Atlas][atlas], a Titan in Greek mythology, condemned to hold the celestial heavens and who had many children. It is an apt name for a project which:
 
@@ -26,10 +26,10 @@ The name **ociatlas** is derived from [Atlas][atlas], a Titan in Greek mythology
     - limit your blast radius
     - avoid the overlapping subnet problem, especially if you need to make a hybrid deployment
     - plan your scalability, HA and failover capabilities
-- Optional pre-configured public bastion instances across all 3 ADs. The bastion instances has the following configurable features:
+- Optional pre-configured public compute instances across all 3 ADs. The compute instances has the following configurable features:
     - oci-cli installed, optionally upgraded and pre-configured
-    - convenient output of how to access the bastion instances
-    - choice of AD location for the bastion instance(s) to avoid problems with service limits/shapes, particularly when using trial accounts
+    - convenient output of how to access the compute instances
+    - choice of AD location for the compute instance(s) to avoid problems with service limits/shapes, particularly when using trial accounts
 
 ## Pre-reqs
 

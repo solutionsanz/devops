@@ -4,8 +4,8 @@ output "vcn_id" {
   value = "${module.vcn.vcn_id}"
 }
 
-output "bastion_public_ips" {
-  value = "${module.bastion.bastion_public_ips}"
+output "compute_public_ips" {
+  value = "${module.compute.compute_public_ips}"
 }
 
 output "ig_route_id" {
@@ -22,12 +22,12 @@ output "nat_gateway_id" {
 
 # convenient output
 
-output "ssh_to_bastion" {
+output "ssh_to_compute" {
   value = "${
     map(
-      "AD1", "ssh -i ${var.ssh_private_key_path} opc@${module.bastion.bastion_public_ips["ad1"]}",
-      "AD2", "ssh -i ${var.ssh_private_key_path} opc@${module.bastion.bastion_public_ips["ad2"]}",
-      "AD3", "ssh -i ${var.ssh_private_key_path} opc@${module.bastion.bastion_public_ips["ad3"]}"
+      "AD1", "ssh -i ${var.ssh_private_key_path} opc@${module.compute.compute_public_ips["ad1"]}",
+      "AD2", "ssh -i ${var.ssh_private_key_path} opc@${module.compute.compute_public_ips["ad2"]}",
+      "AD3", "ssh -i ${var.ssh_private_key_path} opc@${module.compute.compute_public_ips["ad3"]}"
     )
   }"
 }

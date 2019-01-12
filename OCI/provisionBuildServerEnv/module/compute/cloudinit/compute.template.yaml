@@ -6,11 +6,11 @@ timezone: Australia/Sydney
 
 write_files:
 # setup script
-  - path: "/root/bastion/bastion.sh"
+  - path: "/root/compute/compute.sh"
     permissions: "0700"
     encoding: "gzip+base64"
     content: |
-      ${bastion_sh_content}
+      ${compute_sh_content}
   - path: "/root/.oci/config"
     permissions: "0400"
     encoding: "gzip+base64"
@@ -22,7 +22,7 @@ write_files:
     content: |
       ${api_private_key_content}            
 runcmd:
- - echo "Configuring bastion..." | tee /root/bastion/bastion.txt
- - /root/bastion/bastion.sh
+ - echo "Configuring compute..." | tee /root/compute/compute.txt
+ - /root/compute/compute.sh
  - pip install oci-cli --upgrade
- - touch /home/opc/bastion.finish
+ - touch /home/opc/compute.finish

@@ -2,12 +2,12 @@ output "vcn_id" {
   value = "${oci_core_vcn.vcn.id}"
 }
 
-output "bastion_subnet_ids" {
+output "compute_subnet_ids" {
   value = "${
     map(    
-      "ad1","${join(",", oci_core_subnet.bastion_subnet_ad1.*.id)}",
-      "ad2","${join(",", oci_core_subnet.bastion_subnet_ad2.*.id)}",
-      "ad3","${join(",", oci_core_subnet.bastion_subnet_ad3.*.id)}"
+      "ad1","${join(",", oci_core_subnet.compute_subnet_ad1.*.id)}",
+      "ad2","${join(",", oci_core_subnet.compute_subnet_ad2.*.id)}",
+      "ad3","${join(",", oci_core_subnet.compute_subnet_ad3.*.id)}"
      )  
   }"
 }

@@ -31,25 +31,28 @@ newbits = 8
 
 # zero-based index of the subnet when the network is masked with the newbit
 subnets = {
-  "bastion_ad1"     = "12"
-  "bastion_ad2"     = "22"
-  "bastion_ad3"     = "32"
+  "compute_ad1"     = "12"
+  "compute_ad2"     = "22"
+  "compute_ad3"     = "32"
 }
 
 # compute
 
-bastion_shape = "VM.Standard2.2"
+# ubuntu | ol
+os = "ubuntu"
 
-bastion_timezone = "Australia/Sydney"
+compute_shape = "VM.Standard2.2"
 
-update_bastion = "false"
+compute_timezone = "Australia/Sydney"
 
-# ADs where to provision bastion instances
+update_compute = "false"
+
+# ADs where to provision compute instances
 
 availability_domains = {
-  "bastion_ad1"     = "true"
-  "bastion_ad2"     = "false"
-  "bastion_ad3"     = "false"
+  "compute_ad1"     = "true"
+  "compute_ad2"     = "false"
+  "compute_ad3"     = "false"
 }
 
 # nat
