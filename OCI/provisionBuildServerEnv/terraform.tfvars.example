@@ -41,6 +41,9 @@ subnets = {
 # ubuntu | ol
 os = "ubuntu"
 
+# e.g. opc | ubuntu
+os_user = "ubuntu"
+
 compute_shape = "VM.Standard2.2"
 
 compute_timezone = "Australia/Sydney"

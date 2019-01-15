@@ -1,0 +1,49 @@
+### Environment ###
+e000_envName = "dev"
+e001_envNumber = "000"
+
+### Geography ###
+g000_ociRegion = "us-ashburn-1"
+g001_tenancyOcid = "ocid1.tenancy.oc1..aaaaa..."
+g002_compartmentOcid = "ocid1.compartment.oc1..aaaaa..."
+
+### Credentials ###
+c001_userOcid = "ocid1.user.oc1..aaaaa..."
+c002_rsaFingerprint = "9e:29:39:59..."
+c003_rsaPrivateKeyPath = "./ssh/file.pem"
+c004_rsaPublicKeyPath = "./ssh/file.pub"
+
+### Network ###
+### Network :: VCN ###
+n000_vcnCidrBlock = "10.0.0.0/16"
+n001_vcnDisplayName = "${var.n001_vcnDisplayName}"
+n002_vcnDnsLabel = "${var.n002_vcnDnsLabel}"
+
+### Network :: Internet Gateway ###
+n005_igwDisplayName = "${var.n005_igwDisplayName}"
+n006_igwEnabled = "true"
+
+### Network :: Route Table ###
+n010_rtbDisplayName = "${var.n010_rtbDisplayName}"
+n011_rtbCidrBlock = "0.0.0.0/0"
+
+### Network :: Subnet ###
+n015_netNewbits = "8"
+n016_netSubnets = {
+  "lbr-ad1" = "12"
+  "lbr-ad2" = "22"
+  "lbr-ad3" = "32"
+  "wkr-ad1" = "13"
+  "wkr-ad2" = "23"
+  "wkr-ad3" = "33"
+}
+
+### Network :: Security List ###
+n020_secDisplayNameLbr = "${var.n020_secDisplayNameLbr}"
+n021_secDisplayNameWkr = "${var.n021_secDisplayNameWkr}"
+
+### OKE ###
+k009_kubeVers = "v1.10.3"
+k007_wkrNodeShape = "VM.Standard1.2"
+k001_quantityWkrSubnets = "2"
+k002_quantityPerSubnet = "1"

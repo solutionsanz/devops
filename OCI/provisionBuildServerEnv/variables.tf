@@ -103,6 +103,10 @@ variable "os" {
   description = "OS of compute instance"
 }
 
+variable "os_user" {
+  description = "OS compute instance user"
+}
+
 variable "compute_shape" {
   description = "shape of compute instance"
   default     = "VM.Standard1.1"
